@@ -7,6 +7,7 @@ public class MovementManager : MonoBehaviour
 
     Camera _camera;
     Vector2 _newCharacterPosition;
+    bool _needMoveTowards;
 
     void Awake()
     {
@@ -18,16 +19,16 @@ public class MovementManager : MonoBehaviour
         _newCharacterPosition = transform.position;
 
         float verticalAxis = Input.GetAxis("Vertical");
-        bool needChangeVerticalPosition = verticalAxis != 0;
+        bool needChangeVerticalPosition = verticalAxis != 0 && IsVertical();
         if (needChangeVerticalPosition)
             _newCharacterPosition += Vector2.up * verticalAxis;
 
         float horizontalAxis = Input.GetAxis("Horizontal");
-        bool needChangeHorizontalPosition = horizontalAxis != 0;
+        bool needChangeHorizontalPosition = horizontalAxis != 0 && IsHorizontal();
         if (needChangeHorizontalPosition)
             _newCharacterPosition += Vector2.right * horizontalAxis;
 
-        _animator.SetFloat("Run", Mathf.Abs(verticalAxis) + Mathf.Abs(horizontalAxis));
+        //_animator.SetFloat("Run", Mathf.Abs(verticalAxis) + Mathf.Abs(horizontalAxis));
 
         if (needChangeVerticalPosition || needChangeHorizontalPosition)
         {
@@ -51,5 +52,21 @@ public class MovementManager : MonoBehaviour
         return new Vector2(
             Mathf.Clamp(position.x, minScreenBounds.x + 1, maxScreenBounds.x - 1),
             Mathf.Clamp(position.y, minScreenBounds.y + 1, maxScreenBounds.y - 1));
+    }
+
+    bool IsHorizontal()
+    {
+        return Input.GetKey(KeyCode.D) ||
+               Input.GetKey(KeyCode.RightArrow) ||
+               Input.GetKey(KeyCode.A) ||
+               Input.GetKey(KeyCode.LeftArrow);
+    }
+
+    bool IsVertical()
+    {
+        return Input.GetKey(KeyCode.W) ||
+               Input.GetKey(KeyCode.UpArrow) ||
+               Input.GetKey(KeyCode.S) ||
+               Input.GetKey(KeyCode.DownArrow);
     }
 }
