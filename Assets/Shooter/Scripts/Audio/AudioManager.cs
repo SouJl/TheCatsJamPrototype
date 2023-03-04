@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shooter.Audio
@@ -9,6 +10,7 @@ namespace Shooter.Audio
 
         [SerializeField] private List<AudioConfig> _audioConfigs;
         [SerializeField] private AudioSource _audioSource;
+        bool _isTurnedOff;
 
         private List<IAudio> _audios;
 
@@ -17,6 +19,7 @@ namespace Shooter.Audio
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(this);
             }
             else
             {
@@ -26,7 +29,6 @@ namespace Shooter.Audio
 
             InitAudio();
 
-
             DontDestroyOnLoad(gameObject);
         }
 
@@ -34,19 +36,22 @@ namespace Shooter.Audio
         {
             _audios = new List<IAudio>();
 
-            foreach (var audioCfg in _audioConfigs) 
+            foreach (var audioCfg in _audioConfigs)
             {
-                var aduio = CreateAudio(audioCfg, _audioSource);
-                _audios.Add(aduio);
+                var audio = CreateAudio(audioCfg, _audioSource);
+                _audios.Add(audio);
             }
         }
 
-        private IAudio CreateAudio(IAudioConfig config, AudioSource source) => 
+        private IAudio CreateAudio(IAudioConfig config, AudioSource source) =>
             new AudioModel(config, source);
 
 
         public void Play(string name)
         {
+            if (_isTurnedOff)
+                return;
+
             var audio = _audios.Find(a => a.Name == name);
             if (audio == null) return;
             audio.Play();
@@ -54,6 +59,9 @@ namespace Shooter.Audio
 
         public void Pause(string name)
         {
+            if (_isTurnedOff)
+                return;
+
             var audio = _audios.Find(a => a.Name == name);
             if (audio == null) return;
             audio.Pause();
@@ -61,6 +69,9 @@ namespace Shooter.Audio
 
         public void Stop(string name)
         {
+            if (_isTurnedOff)
+                return;
+
             var audio = _audios.Find(a => a.Name == name);
             if (audio == null) return;
             audio.Stop();
@@ -68,6 +79,8 @@ namespace Shooter.Audio
 
         public void SetVolume(string name, float volume)
         {
+            if (_isTurnedOff)
+                return;
 
             var audio = _audios.Find(a => a.Name == name);
             if (audio == null) return;
@@ -83,9 +96,29 @@ namespace Shooter.Audio
 
         public bool IsSoundOn(string name)
         {
+            if (_isTurnedOff)
+                return false;
+
             var audio = _audios.Find(s => s.Name == name);
             if (audio == null) return false;
             return audio.IsSoundOn;
+        }
+
+        public void TurnOffAudio()
+        {
+            foreach (IAudio audio in _audios)
+                audio.Pause();
+
+            _isTurnedOff = true;
+
+        }
+
+        public void TurnOnAudio()
+        {
+            foreach (IAudio audio in _audios)
+                audio.Play();
+
+            _isTurnedOff = false;
         }
     }
 }
