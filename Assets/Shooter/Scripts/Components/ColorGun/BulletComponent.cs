@@ -55,7 +55,7 @@ namespace Shooter.Components.ColorGun
                 }
                 else if (IsColored == false)
                 {
-                    if (IColorableComponent.IsColored == true && IExplosiveComponent is IExplosive)
+                    if (IExplosiveComponent is IExplosive)
                     {
                         IExplosiveComponent.Explode();
                     }

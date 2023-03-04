@@ -1,5 +1,4 @@
 using Shooter.Enemy;
-using System.Collections;
 using UnityEngine;
 
 namespace Shooter.Components.ColorGun
@@ -9,7 +8,6 @@ namespace Shooter.Components.ColorGun
         public bool IsExploding { get; set; }
         public bool IsColored { get; set; }
 
-        [SerializeField] private float explosionDelay;
         [SerializeField] private Collider2D collisionDetectionCollider;
         [SerializeField] private float explosionRadius;
         [SerializeField] private Color defaultColor;
@@ -18,7 +16,7 @@ namespace Shooter.Components.ColorGun
 
         [SerializeField] private EnemyView _enemyView;
 
-        private void Start()
+        private void Awake()
         {
             IsExploding = false;
             IsColored = false;
@@ -27,23 +25,8 @@ namespace Shooter.Components.ColorGun
 
         public virtual void Explode()
         {
-            StartCoroutine(ExplodeCoroutine());
-        }
+            if (!IsColored) return;
 
-        public virtual void SetColored()
-        {
-            IsColored = true;
-            spriteRenderer.color = coloredColor;
-        }
-
-        public virtual void SetDefaultColored()
-        {
-            IsColored = false;
-            spriteRenderer.color = defaultColor;
-        }
-
-        public IEnumerator ExplodeCoroutine() 
-        {
             IsExploding = true;
 
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
@@ -57,8 +40,20 @@ namespace Shooter.Components.ColorGun
                 }
             }
 
-            yield return new WaitForSeconds(explosionDelay);
+            SetDefaultColored();
             _enemyView.CallDestroy();
+        }
+
+        public virtual void SetColored()
+        {
+            IsColored = true;
+            spriteRenderer.color = coloredColor;
+        }
+
+        public virtual void SetDefaultColored()
+        {
+            IsColored = false;
+            spriteRenderer.color = defaultColor;
         }
 
         private void OnDrawGizmos()

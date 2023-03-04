@@ -42,28 +42,34 @@ namespace Shooter.Enemy
 
         private void OnCollisionEnter()
         {
-            _view.Deinit();
             _onDestroy?.Invoke(GameObject); 
         }
 
         public void Execute()
         {
             RotateTowardsTargetPosition(_playerPos.position);
+            MoveTowardsTarget(_playerPos.position);
+        }
 
-            Debug.Log(_playerPos.position);
-
-            Vector3 diff = _playerPos.position - _view.Transform.position;
-            diff.Normalize();
-
+        private void MoveTowardsTarget(Vector3 targetPos)
+        {
+            Vector3 diff = GetDifference(targetPos);
             _view.Transform.position += diff * (_config.Speed * Time.deltaTime);
         }
 
         private void RotateTowardsTargetPosition(Vector3 targetPos)
         {
-            Vector3 diff = targetPos - _view.Transform.position;
-            diff.Normalize();
+            Vector3 diff = GetDifference(targetPos);
+
             float rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             _view.Transform.rotation = Quaternion.Euler(0f, 0f, rotation - 90);
+        }
+
+        private Vector3 GetDifference(Vector3 targetPos)
+        {
+            Vector3 diff = targetPos - _view.Transform.position;
+            diff.Normalize();
+            return diff;
         }
 
         public void FixedExecute()
