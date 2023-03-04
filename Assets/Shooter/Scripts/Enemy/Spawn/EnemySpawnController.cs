@@ -12,16 +12,22 @@ namespace Shooter.Enemy
     {
         private readonly string _viewPath = @"Prefabs/Enemy/EnemySpawn";
 
+        private readonly Transform _playerPos;
         private readonly IEnemySpawnConfig _config;
         private readonly IEnemyPool _enemyPool;
         private readonly IEnemySpawnView _view;
 
         private List<GameObject> _enemies = new List<GameObject>();
 
+        private List<IExecute> _enemyControllers = new List<IExecute>();
+
         public EnemySpawnController(
+            Transform playerPos,
             IEnemySpawnConfig config,
             IEnemyPool enemyPool)
         {
+            _playerPos = playerPos;
+
             _config
                 = config ?? throw new ArgumentNullException(nameof(config));
             _enemyPool
@@ -50,7 +56,8 @@ namespace Shooter.Enemy
 
                 var enemySpawnPos = _config.SpawnPositions[GetSpawnerIndex()];
                 EnemyView enemyView = CreateEnemy(enemySpawnPos);
-                enemyView.Init(OnEnemyDestroy);
+
+                _enemyControllers.Add(new EnemyController(_playerPos, enemyView));
             }
         }
 
@@ -60,13 +67,13 @@ namespace Shooter.Enemy
             enemyObjectView.transform.position = new Vector3(enemySpawnPos.x, enemySpawnPos.y, 0);
             _enemies.Add(enemyObjectView);
 
-            return enemyObjectView.GetComponent<EnemyView>(); ;
+            return enemyObjectView.GetComponent<EnemyView>(); 
         }
 
-        private int GetSpawnerIndex() => 
+        private int GetSpawnerIndex() =>
             Random.Range(0, _config.SpawnerCount);
 
-        private void OnEnemyDestroy(GameObject gameObject) 
+        private void OnEnemyDestroy(GameObject gameObject)
         {
             var enemy = _enemies.Find(e => e == gameObject);
             _enemies.Remove(enemy);
@@ -78,12 +85,13 @@ namespace Shooter.Enemy
 
         public void Execute()
         {
-           
+            foreach (var enemyController in _enemyControllers)
+                enemyController.Execute();
         }
 
         public void FixedExecute()
         {
-            
+
         }
 
         #endregion
@@ -95,6 +103,10 @@ namespace Shooter.Enemy
             _view.Deinit();
             foreach (var enemy in _enemies)
                 enemy.GetComponent<EnemyView>().Deinit();
+
+            foreach (var enemyController in _enemyControllers)
+                enemyController.Dispose();
+
             _enemies.Clear();
         }
 
