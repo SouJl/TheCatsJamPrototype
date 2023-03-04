@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1236908417402787591}
-  - component: {fileID: 1236908417402787590}
+  - component: {fileID: 3751702276506598678}
   m_Layer: 0
-  m_Name: PauseMenuManager
+  m_Name: MovementManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1236908417402787590
+--- !u!114 &3751702276506598678
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236908417402787589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d27427a878f10c8429c93771d4057b68, type: 3}
+  m_Script: {fileID: 11500000, guid: 856e5847b93384f8abf3803a6c4458b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _introManager: {fileID: 0}
-  _endGameManager: {fileID: 0}
-  _pauseMenu: {fileID: 0}
-  _bodyPartsManager: {fileID: 0}
+  _speed: 5
+  _animator: {fileID: 0}
