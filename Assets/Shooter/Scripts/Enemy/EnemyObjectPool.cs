@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Shooter.Tool;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Shooter.Enemy
 {
@@ -12,13 +15,15 @@ namespace Shooter.Enemy
 
     internal class EnemyObjectPool : IEnemyPool
     {
-        private readonly string _prefabPath = "Prefabs/EnenemyPrefab";
+        private readonly string _prefabPath = "Prefabs/Enemy/EnenemyPrefab";
         private readonly Stack<GameObject> _enemyPool = new Stack<GameObject>();
         private readonly GameObject _enemyPrefab;
+        private readonly Transform _root;
 
         public EnemyObjectPool(int poolSize)
         {
-            _enemyPrefab = LoadPrefab(_prefabPath);
+            _enemyPrefab = ResourceLoader.LoadPrefab(_prefabPath);
+            _root = new GameObject($"[{nameof(EnemyObjectPool)}]").transform;
             GenerateEnemies(poolSize);
         }
 
@@ -27,14 +32,12 @@ namespace Shooter.Enemy
             for (int i = 0; i < amount; i++)
             {
                 var enemy = Object.Instantiate(_enemyPrefab);
+                enemy.transform.SetParent(_root);
                 enemy.SetActive(false);
+                
                 _enemyPool.Push(enemy);
             }
         }
-
-        private GameObject LoadPrefab(string prefabPath) => 
-            Resources.Load<GameObject>(prefabPath);
-
 
         public GameObject SpawnEnemy()
         {
