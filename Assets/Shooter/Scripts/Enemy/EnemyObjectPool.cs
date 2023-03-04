@@ -50,7 +50,6 @@ namespace Shooter.Enemy
 
             GameObject newEnemy = Object.Instantiate(_enemyPrefab);
             newEnemy.transform.SetParent(_root);
-            _enemyPool.Push(newEnemy);
 
             return newEnemy;
         }
