@@ -1,3 +1,4 @@
+using Shooter.Audio;
 using Shooter.Player;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,11 @@ namespace Shooter
         {
             var playerController = CreatePlayerController(_playerView);
             _executeObjects.Add(playerController);
+        }
+
+        private void Start()
+        {
+            AudioManager.Instance.Play("Test_Audio");
         }
 
         private void Update()
