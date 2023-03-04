@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Shooter.Audio
 {
@@ -21,18 +20,14 @@ namespace Shooter.Audio
         private readonly IAudioConfig _config;
         private readonly AudioSource _source;
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public bool IsSoundOn { get => _source.isPlaying; }
+        public bool IsSoundOn => _source.isPlaying;
 
         public AudioModel(IAudioConfig config, AudioSource source)
         {
-            _config
-                = config ?? throw new ArgumentNullException(nameof(config));
-
-            _source
-                = source ?? throw new ArgumentNullException(nameof(source));
-
+            _config = config;
+            _source = source;
             Name = _config.Name;
 
             SetAudioData();

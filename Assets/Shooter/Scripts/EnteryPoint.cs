@@ -11,6 +11,7 @@ namespace Shooter
         private readonly string enemySpawnCfgPath = @"Configs/Enemy/EnemySpawnConfig";
 
         [SerializeField] private PlayerView _playerView;
+        [SerializeField] private Components.ColorGun.ColorGunComponent _gun;
 
         private List<IExecute> _executeObjects = new List<IExecute>();
 
@@ -21,6 +22,7 @@ namespace Shooter
 
             var enemySpawnController = CreateEnemyController();
             _executeObjects.Add(enemySpawnController);
+            _executeObjects.Add(_gun);
         }
 
         private void Update()
@@ -42,6 +44,7 @@ namespace Shooter
 
             return controller;
         }
+
 
         private IExecute CreateEnemyController()
         {
