@@ -3,12 +3,10 @@ using UnityEngine;
 
 namespace Shooter.Components.ColorGun
 {
-    public class ExplosiveColorableMonoBehavior : MonoBehaviour, IExplosive, IColorable
+    public class ExplosiveColorableMonoBehavior : MonoBehaviour, IExplosive
     {
-        public bool IsExploding { get; set; }
-        public bool IsColored { get; set; }
+        public bool IsExploding { get; private set; }
 
-        [SerializeField] private Collider2D collisionDetectionCollider;
         [SerializeField] private float explosionRadius;
         [SerializeField] private Color defaultColor;
         [SerializeField] private Color coloredColor;
@@ -19,40 +17,33 @@ namespace Shooter.Components.ColorGun
         private void Awake()
         {
             IsExploding = false;
-            IsColored = false;
             spriteRenderer.color = defaultColor;
         }
 
-        public virtual void Explode()
+        public void Explode()
         {
-            if (!IsColored) return;
-
-            IsExploding = true;
+            SetUnexplosive();
+            _enemyView.CallDestroy();
 
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
             foreach (Collider2D collider in colliders)
             {
                 var IExplosiveComponent = collider.GetComponent<IExplosive>();
 
-                if (IExplosiveComponent is IExplosive && IExplosiveComponent.IsExploding == false)
-                {
+                if (IExplosiveComponent is { IsExploding: true })
                     IExplosiveComponent.Explode();
-                }
             }
-
-            SetDefaultColored();
-            _enemyView.CallDestroy();
         }
 
-        public virtual void SetColored()
+        public void SetExplosive()
         {
-            IsColored = true;
+            IsExploding = true;
             spriteRenderer.color = coloredColor;
         }
 
-        public virtual void SetDefaultColored()
+        private void SetUnexplosive()
         {
-            IsColored = false;
+            IsExploding = false;
             spriteRenderer.color = defaultColor;
         }
 
