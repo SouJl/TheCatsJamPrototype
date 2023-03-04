@@ -19,11 +19,6 @@ namespace Shooter
             _executeObjects.Add(playerController);
         }
 
-        private void Start()
-        {
-            AudioManager.Instance.Play("Test_Audio");
-        }
-
         private void Update()
         {
             foreach (IExecute _executeObject in _executeObjects)
