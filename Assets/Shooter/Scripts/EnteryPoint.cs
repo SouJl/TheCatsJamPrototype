@@ -9,6 +9,7 @@ namespace Shooter
         private readonly string playerCfgPath = @"Configs/Player/PlayerConfig";
 
         [SerializeField] private PlayerView _playerView;
+        [SerializeField] private Components.ColorGun.ColorGunComponent _gun;
 
         private List<IExecute> _executeObjects = new List<IExecute>();
 
@@ -16,6 +17,7 @@ namespace Shooter
         {
             var playerController = CreatePlayerController(_playerView);
             _executeObjects.Add(playerController);
+            _executeObjects.Add(_gun);
         }
 
         private void Update()
@@ -37,7 +39,7 @@ namespace Shooter
 
             return controller;
         }
-        
+
         private IPlayerConfig LoadPlayerConfig(string path)
         {
             return Resources.Load<PlayerConfig>("Configs/Player/PlayerConfig");
