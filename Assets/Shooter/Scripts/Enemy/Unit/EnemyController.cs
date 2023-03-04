@@ -53,16 +53,16 @@ namespace Shooter.Enemy
 
         private void MoveTowardsTarget(Vector3 targetPos)
         {
-            Vector3 diff = GetDifference(targetPos);
-            _view.Transform.position += diff * (_config.Speed * Time.deltaTime);
+            Vector3 targeDiff = GetDifference(targetPos);
+            _view.Transform.position += targeDiff * (_config.Speed * Time.deltaTime);
         }
 
         private void RotateTowardsTargetPosition(Vector3 targetPos)
         {
-            Vector3 diff = GetDifference(targetPos);
-
-            float rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            _view.Transform.rotation = Quaternion.Euler(0f, 0f, rotation - 90);
+            Vector3 targeDiff = GetDifference(targetPos);
+            float angle = MathF.Atan2(targeDiff.y, targeDiff.x) * Mathf.Rad2Deg;
+            var toRotation = Quaternion.Euler(0f, 0f, angle - 90f);
+            _view.Transform.localRotation = Quaternion.Slerp(_view.Transform.localRotation, toRotation, _config.RotationSpeed);
         }
 
         private Vector3 GetDifference(Vector3 targetPos)
