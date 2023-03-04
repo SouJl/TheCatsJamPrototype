@@ -1,4 +1,3 @@
-using Shooter.Audio;
 using Shooter.Player;
 using System.Collections.Generic;
 using UnityEngine;
