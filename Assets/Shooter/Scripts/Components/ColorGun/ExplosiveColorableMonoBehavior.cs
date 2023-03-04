@@ -1,5 +1,5 @@
+using Shooter.Enemy;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shooter.Components.ColorGun
@@ -15,6 +15,8 @@ namespace Shooter.Components.ColorGun
         [SerializeField] private Color defaultColor;
         [SerializeField] private Color coloredColor;
         [SerializeField] private SpriteRenderer spriteRenderer;
+
+        [SerializeField] private EnemyView _enemyView;
 
         private void Start()
         {
@@ -56,7 +58,7 @@ namespace Shooter.Components.ColorGun
             }
 
             yield return new WaitForSeconds(explosionDelay);
-            Destroy(gameObject);
+            _enemyView.CallDestroy();
         }
 
         private void OnDrawGizmos()

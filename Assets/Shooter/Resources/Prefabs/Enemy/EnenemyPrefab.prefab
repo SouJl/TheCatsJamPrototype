@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3633631294945559974}
   - component: {fileID: 3633631294945559975}
   - component: {fileID: 4857632024868973654}
+  - component: {fileID: 2332840307632062821}
+  - component: {fileID: 6045008554910312656}
   m_Layer: 0
   m_Name: EnenemyPrefab
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3633631294945559976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,3 +100,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2332840307632062821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3633631294945559976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6889aeced84e01a40ba7e867435d25ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionDelay: 0.25
+  collisionDetectionCollider: {fileID: 6045008554910312656}
+  explosionRadius: 1.2
+  defaultColor: {r: 1, g: 0, b: 0, a: 1}
+  coloredColor: {r: 0, g: 1, b: 0.8013716, a: 1}
+  spriteRenderer: {fileID: 4857632024868973654}
+  _enemyView: {fileID: 3633631294945559975}
+--- !u!58 &6045008554910312656
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3633631294945559976}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.08

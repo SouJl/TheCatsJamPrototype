@@ -12,7 +12,15 @@ namespace Shooter.Enemy
         private readonly IEnemyView _view;
         private readonly IEnemyConfig _config;
 
-        public EnemyController(Transform playerPos, IEnemyView view)
+        private Action<GameObject> _onDestroy;
+
+        public GameObject GameObject { get; private set; }
+
+        public EnemyController(
+            Transform playerPos, 
+            IEnemyView view, 
+            GameObject gameObject, 
+            Action<GameObject> OnDestroy)
         {
             _playerPos 
                 = playerPos ?? throw new ArgumentNullException(nameof(playerPos));
@@ -20,22 +28,34 @@ namespace Shooter.Enemy
             _view 
                 = view ?? throw new ArgumentNullException(nameof(view));
 
+            _onDestroy = OnDestroy;
+
+            GameObject = gameObject;
+
             _config = LoadConfig(_configPath);
 
-            _view.Init();
+            _view.Init(OnCollisionEnter);
         }
 
         private IEnemyConfig LoadConfig(string configPath) => 
             ResourceLoader.LoadObject<EnemyConfig>(configPath);
 
+        private void OnCollisionEnter()
+        {
+            _view.Deinit();
+            _onDestroy?.Invoke(GameObject); 
+        }
+
         public void Execute()
         {
             RotateTowardsTargetPosition(_playerPos.position);
-            
+
+            Debug.Log(_playerPos.position);
+
             Vector3 diff = _playerPos.position - _view.Transform.position;
             diff.Normalize();
 
-            _view.Transform.position = Vector3.MoveTowards(_view.Transform.position, diff, _config.Speed * Time.deltaTime);
+            _view.Transform.position += diff * (_config.Speed * Time.deltaTime);
         }
 
         private void RotateTowardsTargetPosition(Vector3 targetPos)
@@ -54,6 +74,7 @@ namespace Shooter.Enemy
         public void Dispose()
         {
             _view.Deinit();
+            _onDestroy = default;
         }
     }
 }

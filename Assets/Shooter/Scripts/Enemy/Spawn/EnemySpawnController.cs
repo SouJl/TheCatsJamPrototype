@@ -17,9 +17,7 @@ namespace Shooter.Enemy
         private readonly IEnemyPool _enemyPool;
         private readonly IEnemySpawnView _view;
 
-        private List<GameObject> _enemies = new List<GameObject>();
-
-        private List<IExecute> _enemyControllers = new List<IExecute>();
+        private List<EnemyController> _enemyControllers = new List<EnemyController>();
 
         public EnemySpawnController(
             Transform playerPos,
@@ -53,21 +51,17 @@ namespace Shooter.Enemy
             while (true)
             {
                 yield return waitTimer;
-
                 var enemySpawnPos = _config.SpawnPositions[GetSpawnerIndex()];
-                EnemyView enemyView = CreateEnemy(enemySpawnPos);
-
-                _enemyControllers.Add(new EnemyController(_playerPos, enemyView));
+                CreateEnemy(enemySpawnPos);
             }
         }
 
-        private EnemyView CreateEnemy(Vector3 enemySpawnPos)
+        private void CreateEnemy(Vector3 enemySpawnPos)
         {
             var enemyObjectView = _enemyPool.SpawnEnemy();
             enemyObjectView.transform.position = new Vector3(enemySpawnPos.x, enemySpawnPos.y, 0);
-            _enemies.Add(enemyObjectView);
-
-            return enemyObjectView.GetComponent<EnemyView>(); 
+            var enemyView = enemyObjectView.GetComponent<EnemyView>();
+            _enemyControllers.Add(new EnemyController(_playerPos, enemyView, enemyObjectView, OnEnemyDestroy));
         }
 
         private int GetSpawnerIndex() =>
@@ -75,10 +69,11 @@ namespace Shooter.Enemy
 
         private void OnEnemyDestroy(GameObject gameObject)
         {
-            var enemy = _enemies.Find(e => e == gameObject);
-            _enemies.Remove(enemy);
-            enemy.GetComponent<EnemyView>().Deinit();
-            _enemyPool.DespawnEnemy(enemy);
+            var enemyCtrl = _enemyControllers.Find(e => e.GameObject == gameObject);
+            enemyCtrl.Dispose();
+            _enemyControllers.Remove(enemyCtrl);
+
+            _enemyPool.DespawnEnemy(gameObject);
         }
 
         #region IExecute
@@ -100,14 +95,11 @@ namespace Shooter.Enemy
 
         public void Dispose()
         {
-            _view.Deinit();
-            foreach (var enemy in _enemies)
-                enemy.GetComponent<EnemyView>().Deinit();
 
             foreach (var enemyController in _enemyControllers)
                 enemyController.Dispose();
 
-            _enemies.Clear();
+            _enemyControllers.Clear();
         }
 
         #endregion
