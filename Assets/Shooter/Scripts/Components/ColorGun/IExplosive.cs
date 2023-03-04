@@ -2,7 +2,8 @@
 {
     internal interface IExplosive
     {
-        bool IsExploding { get; set; }
+        bool IsExploding { get; }
+        void SetExplosive();
         void Explode();
     }
 }

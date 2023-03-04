@@ -14,15 +14,10 @@ namespace Shooter.Enemy
 
     internal class EnemyView : MonoBehaviour, IEnemyView
     {
-        [field: SerializeField] public Transform Transform { get; private set; }
+        [field: SerializeField] public Transform Transform => transform;
 
         private Action _onTriggerEnter;
 
-        private void Awake()
-        {
-            Transform = GetComponent<Transform>();
-        }
-        
         public void Init(Action onTriggerEnter)
         {
             _onTriggerEnter = onTriggerEnter;
@@ -32,7 +27,6 @@ namespace Shooter.Enemy
         {
             _onTriggerEnter = default;
         }
-
 
         public void CallDestroy()
         {
