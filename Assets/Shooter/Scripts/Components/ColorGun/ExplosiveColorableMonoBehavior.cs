@@ -8,15 +8,15 @@ namespace Shooter.Components.ColorGun
         public bool IsExploding { get; private set; }
 
         [SerializeField] private float explosionRadius;
-        [SerializeField] private Color defaultColor;
-        [SerializeField] private Color coloredColor;
+        [SerializeField] private Sprite uncoloredSprite;
+        [SerializeField] private Sprite coloredSprite;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private EnemyView _enemyView;
 
         private void Awake()
         {
             IsExploding = false;
-            spriteRenderer.color = defaultColor;
+            spriteRenderer.sprite = uncoloredSprite;
         }
 
         public void Explode()
@@ -34,19 +34,13 @@ namespace Shooter.Components.ColorGun
         public void SetExplosive()
         {
             IsExploding = true;
-            spriteRenderer.color = coloredColor;
+            spriteRenderer.sprite = coloredSprite;
         }
 
         private void SetUnexplosive()
         {
             IsExploding = false;
-            spriteRenderer.color = defaultColor;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, explosionRadius);
+            spriteRenderer.sprite = uncoloredSprite;
         }
     }
 }

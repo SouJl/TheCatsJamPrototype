@@ -129,6 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthPlacement: {fileID: 2733265595492726373}
-  _helthEmptySprite: {fileID: 21300000, guid: a3ced8f7044b9de4787602a9e9b20ea7, type: 3}
-  _helthFullSprite: {fileID: 21300000, guid: a67b58d6cddcd4345b1e001340de5a76, type: 3}
+  _helthEmptySprite: {fileID: 21300000, guid: d3d3babd6769d34418793b768c0ee82f, type: 3}
+  _helthFullSprite: {fileID: 21300000, guid: bbad79426c80bac4d86c88f3c0746260, type: 3}
   _healthItemPrefab: {fileID: 6322851265995934696, guid: 45bfc91d6acf4ed4bb8e90f778d22877, type: 3}
