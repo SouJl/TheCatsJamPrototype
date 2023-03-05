@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007d8ecad21e4f60a6221bc251076eed, type: 3}
   m_Name: HealthConfig
   m_EditorClassIdentifier: 
-  <HealthPoints>k__BackingField: 3
+  <HealthPoints>k__BackingField: 9
   <SpawnPeriod>k__BackingField: 5
   <LifeTime>k__BackingField: 3
