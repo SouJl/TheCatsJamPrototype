@@ -16,7 +16,8 @@ namespace Shooter.UI
     internal class HealthBarView : MonoBehaviour, IHealthBarView
     {
         [SerializeField] private RectTransform _healthPlacement;
-        [SerializeField] private Sprite helthSprite;
+        [SerializeField] private Sprite _helthEmptySprite;
+        [SerializeField] private Sprite _helthFullSprite;
         [SerializeField] private Image _healthItemPrefab;
 
         private List<Image> _healthsImage;
@@ -75,19 +76,16 @@ namespace Shooter.UI
             {
                 if (i > _currentHealth - 1)
                 {
-                    _healthsImage[i].sprite = default;
-                    _healthsImage[i].enabled = false;
+                    _healthsImage[i].sprite = _helthEmptySprite;
                 }
                 else
                 {
-                    _healthsImage[i].sprite = helthSprite;
-                    _healthsImage[i].enabled = true;
+                    _healthsImage[i].sprite = _helthFullSprite;
                 }
             }
-
+            
             LayoutRebuilder.ForceRebuildLayoutImmediate(_healthPlacement);
         }
-
 
         #region For UI Test
 
@@ -98,6 +96,5 @@ namespace Shooter.UI
         private void MinusOneHealt() => DecreaseHealth(1);
         
         #endregion
-
     }
 }
