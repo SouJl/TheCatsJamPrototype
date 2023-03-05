@@ -49,8 +49,7 @@ namespace Shooter
         private IExecute CreateEnemyController()
         {
             var config = LoadEnemySpawnConfig(enemySpawnCfgPath);
-            var enemyPool = new EnemyObjectPool(3);
-            var controller = new EnemySpawnController(_playerView.transform, config, enemyPool);
+            var controller = new EnemySpawnController(_playerView.transform, config);
 
             return controller;
         }

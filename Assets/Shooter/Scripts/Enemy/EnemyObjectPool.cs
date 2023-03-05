@@ -16,15 +16,22 @@ namespace Shooter.Enemy
     internal class EnemyObjectPool : IEnemyPool
     {
         private readonly string _prefabPath = "Prefabs/Enemy/EnenemyPrefab";
+
+        private readonly IObjectPoolConfig _config;
+
         private readonly Stack<GameObject> _enemyPool = new Stack<GameObject>();
         private readonly GameObject _enemyPrefab;
         private readonly Transform _root;
 
-        public EnemyObjectPool(int poolSize)
+        public EnemyObjectPool(IObjectPoolConfig config)
         {
+            _config
+                = config ?? throw new ArgumentNullException(nameof(config));
+
             _enemyPrefab = ResourceLoader.LoadPrefab(_prefabPath);
             _root = new GameObject($"[{nameof(EnemyObjectPool)}]").transform;
-            GenerateEnemies(poolSize);
+
+            GenerateEnemies(_config.PoolSize);
         }
 
         private void GenerateEnemies(int amount) 

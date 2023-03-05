@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Shooter.Tool;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Shooter.Enemy
@@ -7,6 +8,9 @@ namespace Shooter.Enemy
     {
         float SwpawnRate { get; }
         int SpawnerCount { get; }
+
+        IObjectPoolConfig PoolConfig { get; }
+
         IReadOnlyList<Vector3> SpawnPositions { get; } 
     }
 
@@ -15,10 +19,14 @@ namespace Shooter.Enemy
     {
         [field: SerializeField] public float SwpawnRate { get; private set; } = 1.2f;
 
+        [SerializeField] private ObjectPoolConfig _poolConfig;
+
         [SerializeField] private Vector3[] _spawnPositions;
 
         [HideInInspector] public int SpawnerCount => _spawnPositions.Length;
 
-        public IReadOnlyList<Vector3> SpawnPositions => _spawnPositions; 
+        public IReadOnlyList<Vector3> SpawnPositions => _spawnPositions;
+
+        public IObjectPoolConfig PoolConfig => _poolConfig;
     }
 }

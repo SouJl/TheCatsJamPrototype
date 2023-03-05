@@ -21,20 +21,24 @@ namespace Shooter.Enemy
 
         public EnemySpawnController(
             Transform playerPos,
-            IEnemySpawnConfig config,
-            IEnemyPool enemyPool)
+            IEnemySpawnConfig config)
         {
             _playerPos = playerPos;
 
             _config
                 = config ?? throw new ArgumentNullException(nameof(config));
-            _enemyPool
-                = enemyPool ?? throw new ArgumentNullException(nameof(enemyPool));
+            
+            _enemyPool = CreateEnemyPool(_config);
 
             _view = LoadView(_viewPath);
 
             _view.Init(Spawner());
+        }
 
+        private IEnemyPool CreateEnemyPool(IEnemySpawnConfig config)
+        {
+            var enemyPool = new EnemyObjectPool(config.PoolConfig);
+            return enemyPool;
         }
 
         private EnemySpawnView LoadView(string path)
