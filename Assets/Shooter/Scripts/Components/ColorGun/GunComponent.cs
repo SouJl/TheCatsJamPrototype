@@ -41,7 +41,7 @@ namespace Shooter.Components.ColorGun
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 toMouseDirection = (mousePos - transform.position).normalized;
             Vector3 bulletVelocity = toMouseDirection * _bulletSpeed;
-            bullet.Launch(bulletVelocity, _playerView.transform.position);
+            bullet.Launch(bulletVelocity, _playerTransform.position);
         }
 
 

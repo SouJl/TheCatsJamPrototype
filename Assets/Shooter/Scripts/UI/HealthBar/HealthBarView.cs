@@ -9,8 +9,8 @@ namespace Shooter.UI
     internal interface IHealthBarView
     {
         void Init(int maxHealth);
-        void IncreaseHealth();
-        void DecreaseHealth();
+        void GenerateHealth(int count);
+        void UpdateHealthBar(int currentHealth);
     }
 
     internal class HealthBarView : MonoBehaviour, IHealthBarView
@@ -21,8 +21,8 @@ namespace Shooter.UI
         [SerializeField] private Image _healthItemPrefab;
 
         private List<Image> _healthsImage;
+
         private int _maxHealth;
-        private int _currentHealth;
 
         private void Awake()
         {
@@ -39,34 +39,16 @@ namespace Shooter.UI
             GenerateHealth(_maxHealth);
         }
 
-        public void IncreaseHealth()
+        public void GenerateHealth(int count)
         {
-            int resultHealth = _currentHealth + 1;
-            _currentHealth = resultHealth > _maxHealth ? _maxHealth : resultHealth;
-
-            UpdateHealthBar();
-        }
-
-        public void DecreaseHealth()
-        {
-            int resultHealth = _currentHealth - 1;
-            _currentHealth = resultHealth < 0 ? 0 : resultHealth;
-
-            UpdateHealthBar();
-        }
-
-        private void GenerateHealth(int count)
-        {
-            for(int i =0; i < count; i++)
+            for(int i = 0; i < count; i++)
             {
                Image newHealtPoint = Instantiate(_healthItemPrefab, _healthPlacement, false);
                 _healthsImage.Add(newHealtPoint);
             }
-
-            _currentHealth = _maxHealth;
         }
 
-        private void UpdateHealthBar()
+        public void UpdateHealthBar(int _currentHealth)
         {
             if (_healthsImage == null) return;
 
@@ -84,15 +66,5 @@ namespace Shooter.UI
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(_healthPlacement);
         }
-
-        #region For UI Test
-
-        [ContextMenu(nameof(AddHealth))]
-        private void AddHealth() => IncreaseHealth();
-
-        [ContextMenu(nameof(MinusOneHealt))]
-        private void MinusOneHealt() => DecreaseHealth();
-
-        #endregion
     }
 }

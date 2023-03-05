@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 603611881189004902}
   - component: {fileID: 603611881189004826}
   - component: {fileID: 6394243022088086660}
+  - component: {fileID: 291321976434200934}
   - component: {fileID: 137594749748237088}
   - component: {fileID: 2002129512223294977}
   m_Layer: 0
@@ -132,6 +133,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killerZoneRadius: 2
   killerZoneTrigger: {fileID: 137594749748237088}
+--- !u!114 &291321976434200934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603611881189004901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5445b1b7578f04d409180c188ff82b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPickupZoneRadius: 2.5
+  healthPickupZoneTrigger: {fileID: 137594749748237088}
 --- !u!58 &137594749748237088
 CircleCollider2D:
   m_ObjectHideFlags: 0

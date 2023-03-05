@@ -18,6 +18,7 @@ namespace Shooter
             var ammoController = new AmmoController();
             var playerController = new PlayerController(ammoController, healthBarController);
 
+            _executeObjects.Add(healthBarController);
             _executeObjects.Add(playerController);
             _executeObjects.Add(new EnemySpawnController(playerController.playerTransform));
         }
