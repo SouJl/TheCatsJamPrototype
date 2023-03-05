@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Shooter.Controllers;
+using Shooter.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,13 +29,10 @@ namespace Shooter.UI
         private int _maxHealth;
         private int _currentHealth;
 
-        private void Awake()
-        {
-            _healths = new List<HealthView>();
-        }
-
         public void Init(int maxHealth)
         {
+            _healths = new List<HealthView>();
+
             _maxHealth = maxHealth;
             GenerateHealth(_maxHealth);
         }

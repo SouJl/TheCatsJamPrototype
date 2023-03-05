@@ -12,21 +12,24 @@ namespace Shooter
     {
         [SerializeField] private Transform _placeForUI;
 
-        private List<IExecute> _executeObjects = new List<IExecute>();
+        private readonly List<IExecute> _executeObjects = new List<IExecute>();
 
         private void Awake()
         {
+            var hardcoreController = new HardcoreController();
             var pauseController = new PauseController();
+            var scoreController = new ScoreController(_placeForUI);
             var healthBarController = new HealthController(_placeForUI);
             var bonusMultiplyController = new BonusMultiplyController();
             var scoreControleller = new ScoreController(_placeForUI, bonusMultiplyController);
-            var ammoController = new AmmoController(_placeForUI);
-            var playerController = new PlayerController(ammoController, healthBarController, scoreControleller);
+            var ammoController = new AmmoController(hardcoreController, _placeForUI);
+            var playerController = new PlayerController(ammoController, healthBarController, scoreController);
             var endGameController = new EndGameController(pauseController, healthBarController, _placeForUI);
 
             _executeObjects.Add(playerController);
             _executeObjects.Add(ammoController);
-            _executeObjects.Add(new EnemySpawnController(playerController.playerTransform));
+            _executeObjects.Add(hardcoreController);
+            _executeObjects.Add(new EnemySpawnController(hardcoreController, playerController.playerTransform));
             _executeObjects.Add(bonusMultiplyController);
         }
 

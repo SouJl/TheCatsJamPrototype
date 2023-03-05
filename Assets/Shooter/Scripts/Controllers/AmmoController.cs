@@ -1,4 +1,5 @@
 ﻿using Shooter;
+using Shooter.Controllers;
 using Shooter.Player;
 using Shooter.Tool;
 using Shooter.UI;
@@ -6,6 +7,7 @@ using UnityEngine;
 
 public class AmmoController : IExecute
 {
+    readonly HardcoreController _hardcoreController;
     private readonly string _configPath = @"Configs/Ammo/AmmoConfig";
     private readonly string _viewPath = @"Prefabs/UI/Health/AmmoView";
 
@@ -16,8 +18,9 @@ public class AmmoController : IExecute
     float _currentRechargeTime;
     float _nextRechargeTime;
 
-    public AmmoController(Transform placeForUI)
+    public AmmoController(HardcoreController hardcoreController, Transform placeForUI)
     {
+        _hardcoreController = hardcoreController;
         _currentAmmo = 1f;
         _view = LoadView(placeForUI);
         _view.Init(_currentAmmo);
@@ -47,7 +50,7 @@ public class AmmoController : IExecute
 
     public void AddEnemyAmmo()
     {
-        _currentAmmo += _config.AmmoPerEnemy;
+        _currentAmmo += _hardcoreController.GetEnemyAmmoHealth();
 
         if (_currentAmmo > 1f)
             _currentAmmo = 1f;
