@@ -15,22 +15,22 @@ MonoBehaviour:
   <StartDelay>k__BackingField: 5
   <hardcores>k__BackingField:
   - index: 0
-    stepLength: 5
+    stepLength: 10
     enemySpawnRate: 1
-    enemyAmmoHealthIncrease: 0.1
+    enemyAmmoHealthIncrease: 0.5
   - index: 1
-    stepLength: 5
+    stepLength: 15
     enemySpawnRate: 0.9
-    enemyAmmoHealthIncrease: 0.05
+    enemyAmmoHealthIncrease: 0.4
   - index: 2
-    stepLength: 5
+    stepLength: 15
     enemySpawnRate: 0.8
-    enemyAmmoHealthIncrease: 0.05
+    enemyAmmoHealthIncrease: 0.3
   - index: 3
-    stepLength: 5
+    stepLength: 20
     enemySpawnRate: 0.7
-    enemyAmmoHealthIncrease: 0.05
+    enemyAmmoHealthIncrease: 0.2
   - index: 4
     stepLength: 5
-    enemySpawnRate: 0.6
-    enemyAmmoHealthIncrease: 0.05
+    enemySpawnRate: 0.3
+    enemyAmmoHealthIncrease: 0.08

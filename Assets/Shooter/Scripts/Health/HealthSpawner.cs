@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthSpawner : MonoBehaviour
 {
-    [SerializeField] Health _healthPrefab;
+    [SerializeField] private Health _healthPrefab;
+    [SerializeField] private Vector2 _screenOffset;
     HealthPool _healthPool;
     Vector2 _minScreenBounds;
     Vector2 _maxScreenBounds;
@@ -15,8 +14,10 @@ public class HealthSpawner : MonoBehaviour
         _maxLifeTime = maxLifeTime;
         _healthPool = new HealthPool();
 
-        _minScreenBounds = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
-        _maxScreenBounds = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        _minScreenBounds 
+            = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
+        _maxScreenBounds 
+            = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - _screenOffset.x, Screen.height - _screenOffset.y));
     }
 
     public void Spawn()

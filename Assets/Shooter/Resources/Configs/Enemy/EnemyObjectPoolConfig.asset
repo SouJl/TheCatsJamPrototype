@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acc1368f63c0684d9e1f733ebf73795, type: 3}
   m_Name: EnemyObjectPoolConfig
   m_EditorClassIdentifier: 
-  <PoolSize>k__BackingField: 30
+  <PoolSize>k__BackingField: 45
