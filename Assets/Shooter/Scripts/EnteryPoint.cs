@@ -7,9 +7,6 @@ namespace Shooter
 {
     internal class EnteryPoint : MonoBehaviour
     {
-        private readonly string playerCfgPath = @"Configs/Player/PlayerConfig";
-        private readonly string enemySpawnCfgPath = @"Configs/Enemy/EnemySpawnConfig";
-
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private Components.ColorGun.GunComponent _gun;
 
@@ -39,29 +36,14 @@ namespace Shooter
 
         private IExecute CreatePlayerController(IPlayerView view)
         {
-            var config = LoadPlayerConfig(playerCfgPath);
-            var controller = new PlayerController(view, config);
-
+            var controller = new PlayerController(view);
             return controller;
         }
-
 
         private IExecute CreateEnemyController()
         {
-            var config = LoadEnemySpawnConfig(enemySpawnCfgPath);
-            var controller = new EnemySpawnController(_playerView.transform, config);
-
+            var controller = new EnemySpawnController(_playerView.transform);
             return controller;
-        }
-
-        private IPlayerConfig LoadPlayerConfig(string path)
-        {
-            return Resources.Load<PlayerConfig>(path);
-        }
-
-        private IEnemySpawnConfig LoadEnemySpawnConfig(string path)
-        {
-            return Resources.Load<EnemySpawnConfig>(path);
         }
     }
 }

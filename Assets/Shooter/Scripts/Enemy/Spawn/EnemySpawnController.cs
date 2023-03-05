@@ -10,6 +10,7 @@ namespace Shooter.Enemy
 {
     internal class EnemySpawnController : IExecute
     {
+        private readonly string _configPath = @"Configs/Enemy/EnemySpawnConfig";
         private readonly string _viewPath = @"Prefabs/Enemy/EnemySpawn";
 
         private readonly Transform _playerPos;
@@ -19,14 +20,11 @@ namespace Shooter.Enemy
 
         private List<EnemyController> _enemyControllers = new List<EnemyController>();
 
-        public EnemySpawnController(
-            Transform playerPos,
-            IEnemySpawnConfig config)
+        public EnemySpawnController(Transform playerPos)
         {
             _playerPos = playerPos;
 
-            _config
-                = config ?? throw new ArgumentNullException(nameof(config));
+            _config = LoadConfig(_configPath);
             
             _enemyPool = CreateEnemyPool(_config);
 
@@ -34,6 +32,12 @@ namespace Shooter.Enemy
 
             _view.Init(Spawner());
         }
+
+        #region InitalLoad
+
+        private IEnemySpawnConfig LoadConfig(string path) => 
+            Resources.Load<EnemySpawnConfig>(path);
+        
 
         private IEnemyPool CreateEnemyPool(IEnemySpawnConfig config)
         {
@@ -47,6 +51,7 @@ namespace Shooter.Enemy
             return objectView.GetComponent<EnemySpawnView>();
         }
 
+        #endregion
 
         private IEnumerator Spawner()
         {

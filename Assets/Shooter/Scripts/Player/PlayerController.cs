@@ -1,20 +1,26 @@
-﻿using System;
+﻿using Shooter.Tool;
+using System;
 
 namespace Shooter.Player
 {
     internal class PlayerController : IExecute
     {
+        private readonly string _configPath= @"Configs/Player/PlayerConfig";
+
         private readonly IPlayerView _view;
         private readonly IPlayerConfig _config;
 
-        public PlayerController(IPlayerView view, IPlayerConfig config)
+        public PlayerController(IPlayerView view)
         {
             _view 
                 = view ?? throw new ArgumentNullException(nameof(view));
-            _config 
-                = config ?? throw new ArgumentNullException(nameof(config));
+
+            _config = LoadConfig(_configPath);
 
         }
+
+        private IPlayerConfig LoadConfig(string path) => 
+            ResourceLoader.LoadObject<PlayerConfig>(path);
 
 
         #region IExecute

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EnemySpawnConfig
   m_EditorClassIdentifier: 
   <SwpawnRate>k__BackingField: 1.2
+  _poolConfig: {fileID: 11400000, guid: 08cdc5cb793b6244f8e4192f2647d70d, type: 2}
   _spawnPositions:
   - {x: -10, y: 0, z: 0}
   - {x: -10, y: 6, z: 0}
