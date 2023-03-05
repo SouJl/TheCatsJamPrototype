@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Shooter.Controllers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -13,15 +14,17 @@ namespace Shooter.Enemy
         private readonly string _configPath = @"Configs/Enemy/EnemySpawnConfig";
         private readonly string _viewPath = @"Prefabs/Enemy/EnemySpawn";
 
+        readonly HardcoreController _hardcoreController;
         private readonly Transform _playerTransform;
         private readonly IEnemySpawnConfig _config;
         private readonly EnemyObjectPool _enemyPool;
         private readonly IEnemySpawnView _view;
 
-        private readonly List<EnemyController> _enemyControllers = new List<EnemyController>();
+        private readonly List<EnemyController> _enemyControllers = new();
 
-        public EnemySpawnController(Transform playerTransform)
+        public EnemySpawnController(HardcoreController hardcoreController, Transform playerTransform)
         {
+            _hardcoreController = hardcoreController;
             _playerTransform = playerTransform;
             _config = LoadConfig(_configPath);
             _enemyPool = CreateEnemyPool(_config);
@@ -52,11 +55,12 @@ namespace Shooter.Enemy
 
         private IEnumerator Spawner()
         {
-            var waitTimer = new WaitForSeconds(_config.SwpawnRate);
+            if (!_hardcoreController.IsStarted())
+                yield return new WaitUntil(_hardcoreController.IsStarted);
 
             while (true)
             {
-                yield return waitTimer;
+                yield return new WaitForSeconds(_hardcoreController.GetSpawnRate());
                 var enemySpawnPos = _config.SpawnPositions[GetSpawnerIndex()];
                 SpawnEnemy(enemySpawnPos);
             }
