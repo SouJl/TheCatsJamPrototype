@@ -4,21 +4,18 @@ using UnityEngine;
 
 namespace Shooter.Enemy
 {
-    internal interface IEnemySpawnConfig 
+    internal interface IEnemySpawnConfig
     {
-        float SwpawnRate { get; }
         int SpawnerCount { get; }
 
         IObjectPoolConfig PoolConfig { get; }
 
-        IReadOnlyList<Vector3> SpawnPositions { get; } 
+        IReadOnlyList<Vector3> SpawnPositions { get; }
     }
 
     [CreateAssetMenu(fileName = nameof(EnemySpawnConfig), menuName = "Configs/Enemy/" + nameof(EnemySpawnConfig))]
     internal class EnemySpawnConfig : ScriptableObject, IEnemySpawnConfig
     {
-        [field: SerializeField] public float SwpawnRate { get; private set; } = 1.2f;
-
         [SerializeField] private ObjectPoolConfig _poolConfig;
 
         [SerializeField] private Vector3[] _spawnPositions;
