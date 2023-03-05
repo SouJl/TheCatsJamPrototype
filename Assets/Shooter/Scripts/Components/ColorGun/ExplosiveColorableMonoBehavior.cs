@@ -7,7 +7,6 @@ namespace Shooter.Components.ColorGun
     {
         public bool IsExploding { get; private set; }
 
-        [SerializeField] private float explosionRadius;
         [SerializeField] private Sprite uncoloredSprite;
         [SerializeField] private Sprite coloredSprite;
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -30,7 +29,7 @@ namespace Shooter.Components.ColorGun
         public void Damage()
         {
             SetUnexplosive();
-            _enemyView.Explode();
+            _enemyView.Damage();
         }
 
         public void SetExplosive()
