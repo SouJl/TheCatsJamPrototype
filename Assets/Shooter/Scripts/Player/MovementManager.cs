@@ -1,21 +1,26 @@
+using Shooter.Controllers;
 using UnityEngine;
 
 public class MovementManager : MonoBehaviour
 {
     [SerializeField] float _speed;
-    [SerializeField] Animator _animator;
 
     Camera _camera;
     Vector2 _newCharacterPosition;
     bool _needMoveTowards;
+    PauseController _pauseController;
 
-    void Awake()
+    public void Init(PauseController pauseController)
     {
         _camera = Camera.main;
+        _pauseController = pauseController;
     }
 
     void Update()
     {
+        if (_pauseController.isPaused)
+            return;
+
         _newCharacterPosition = transform.position;
 
         float verticalAxis = Input.GetAxis("Vertical");
@@ -27,8 +32,6 @@ public class MovementManager : MonoBehaviour
         bool needChangeHorizontalPosition = horizontalAxis != 0 && IsHorizontal();
         if (needChangeHorizontalPosition)
             _newCharacterPosition += Vector2.right * horizontalAxis;
-
-        //_animator.SetFloat("Run", Mathf.Abs(verticalAxis) + Mathf.Abs(horizontalAxis));
 
         if (needChangeVerticalPosition || needChangeHorizontalPosition)
         {

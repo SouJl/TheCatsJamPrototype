@@ -1,6 +1,7 @@
 ﻿using Shooter.Tool;
 using Shooter.UI;
 using System;
+using Shooter.Controllers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -17,13 +18,13 @@ namespace Shooter.Player
         private readonly IPlayerConfig _config;
         private readonly IPlayer _playerModel;
 
-        public PlayerController(
-            AmmoController ammoController, 
-            HealthController healthController, 
-            ScoreController scoreController)
+        public PlayerController(AmmoController ammoController,
+            HealthController healthController,
+            ScoreController scoreController,
+            PauseController pauseController)
         {
             _view = LoadView(_viewPath);
-            _view.Init(ammoController, healthController, scoreController);
+            _view.Init(ammoController, healthController, scoreController, pauseController);
 
             _config = LoadConfig(_configPath);
             _playerModel = new PlayerModel(_config);

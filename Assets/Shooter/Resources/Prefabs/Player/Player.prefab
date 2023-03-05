@@ -54,6 +54,7 @@ MonoBehaviour:
   _killerZoneComponent: {fileID: 6394243022088086660}
   _healthPickupZoneComponent: {fileID: 3392784770052464849}
   _gunComponent: {fileID: 4243462742682510339}
+  _movementManager: {fileID: 603611881189004826}
 --- !u!114 &603611881189004826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,7 +68,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _animator: {fileID: 0}
 --- !u!114 &6394243022088086660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31435c9996cc63f4ab0f3c4f9fd5e049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDamageble: 0
 --- !u!114 &3392784770052464849
 MonoBehaviour:
   m_ObjectHideFlags: 0

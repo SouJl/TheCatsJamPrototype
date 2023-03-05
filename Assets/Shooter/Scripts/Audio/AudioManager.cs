@@ -121,7 +121,7 @@ namespace Shooter.Audio
         public void TurnOffAudio()
         {
             foreach (IAudio audio in _audios)
-                audio.Pause();
+                audio.SetVolume(0);
 
             _isTurnedOff = true;
 
@@ -129,8 +129,11 @@ namespace Shooter.Audio
 
         public void TurnOnAudio()
         {
-            foreach (IAudio audio in _audios)
-                audio.Play();
+            for (var index = 0; index < _audios.Count; index++)
+            {
+                IAudio audio = _audios[index];
+                audio.SetVolume(_audioConfigs[index].Volume);
+            }
 
             _isTurnedOff = false;
         }

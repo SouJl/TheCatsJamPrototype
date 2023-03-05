@@ -12,6 +12,7 @@ namespace Shooter.Components.ColorGun
         [SerializeField] private Sprite coloredSprite;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private EnemyView _enemyView;
+        [SerializeField] AudioSource _audioSource;
 
         private void Awake()
         {
@@ -21,6 +22,7 @@ namespace Shooter.Components.ColorGun
 
         public void Explode()
         {
+            _audioSource.Play();
             SetUnexplosive();
             _enemyView.Explode();
         }
