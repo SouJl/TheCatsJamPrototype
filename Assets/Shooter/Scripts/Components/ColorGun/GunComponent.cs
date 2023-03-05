@@ -21,7 +21,7 @@ namespace Shooter.Components.ColorGun
 
         public void Update()
         {
-            if (Input.GetButtonDown("Fire1") && _ammoController.CurrentAmmo > 0)
+            if (Input.GetButtonDown("Fire1") && _ammoController.CanShoot())
             {
                 var bullet = _coloredBulletPool.GetBullet();
                 if (bullet == null)
@@ -38,9 +38,7 @@ namespace Shooter.Components.ColorGun
 
         private void Shoot(IBullet bullet)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 toMouseDirection = (mousePos - transform.position).normalized;
-            Vector3 bulletVelocity = toMouseDirection * _bulletSpeed;
+            Vector3 bulletVelocity = transform.up * _bulletSpeed;
             bullet.Launch(bulletVelocity, _playerTransform.position);
         }
 

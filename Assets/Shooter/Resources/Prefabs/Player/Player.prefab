@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31435c9996cc63f4ab0f3c4f9fd5e049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killerZoneRadius: 2
+  killerZoneRadius: 0.37
   killerZoneTrigger: {fileID: 137594749748237088}
 --- !u!114 &291321976434200934
 MonoBehaviour:
@@ -160,9 +160,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0047130287, y: 0}
   serializedVersion: 2
-  m_Radius: 1.19
+  m_Radius: 0.39354154
 --- !u!50 &2002129512223294977
 Rigidbody2D:
   serializedVersion: 4

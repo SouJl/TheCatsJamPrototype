@@ -9,12 +9,17 @@ namespace Shooter.Components.ColorGun
         [SerializeField] CircleCollider2D killerZoneTrigger;
         AmmoController _ammoController;
         HealthController _healthController;
+        ScoreController _scoreController;
 
-        public void Init(AmmoController ammoController, HealthController healthController)
+        public void Init(
+            AmmoController ammoController, 
+            HealthController healthController,
+            ScoreController scoreController)
         {
             killerZoneTrigger.radius = killerZoneRadius;
             _ammoController = ammoController;
             _healthController = healthController;
+            _scoreController = scoreController;
         }
 
         private void OnTriggerStay2D(Collider2D collision)
@@ -26,9 +31,11 @@ namespace Shooter.Components.ColorGun
                 {
                     explosive.Explode();
                     _ammoController.AddEnemyAmmo();
+                    _scoreController.IncreaseScoreValue();
                 }
                 else
                 {
+                    explosive.Damage();
                     _healthController.DecreaseHealth();
                 }
             }

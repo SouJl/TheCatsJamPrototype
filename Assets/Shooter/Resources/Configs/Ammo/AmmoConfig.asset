@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AmmoPerEnemy>k__BackingField: 0.1
   <AmmoPerRecharge>k__BackingField: 0.1
-  <AmmoRechargePeriod>k__BackingField: 0.1
+  <AmmoRechargePeriod>k__BackingField: 1

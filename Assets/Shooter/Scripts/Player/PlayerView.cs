@@ -11,9 +11,12 @@ namespace Shooter.Player
         [SerializeField] private KillerZoneComponent _killerZoneComponent;
         [SerializeField] private GunComponent _gunComponent;
 
-        public void Init(AmmoController ammoController, HealthController healthController)
+        public void Init(
+            AmmoController ammoController, 
+            HealthController healthController, 
+            ScoreController scoreController)
         {
-            _killerZoneComponent.Init(ammoController, healthController);
+            _killerZoneComponent.Init(ammoController, healthController, scoreController);
             _gunComponent.Init(ammoController, transform);
         }
     }

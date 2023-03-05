@@ -17,10 +17,13 @@ namespace Shooter.Player
         private readonly IPlayerConfig _config;
         private readonly IPlayer _playerModel;
 
-        public PlayerController(AmmoController ammoController, HealthController healthController)
+        public PlayerController(
+            AmmoController ammoController, 
+            HealthController healthController, 
+            ScoreController scoreController)
         {
             _view = LoadView(_viewPath);
-            _view.Init(ammoController, healthController);
+            _view.Init(ammoController, healthController, scoreController);
 
             _config = LoadConfig(_configPath);
             _playerModel = new PlayerModel(_config);

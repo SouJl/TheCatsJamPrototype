@@ -104,6 +104,20 @@ namespace Shooter.Audio
             return audio.IsSoundOn;
         }
 
+        public bool SwitchAudioOnOff()
+        {
+            if (_isTurnedOff)
+            {
+                TurnOnAudio();
+                return true;
+            }
+            else
+            {
+                TurnOffAudio();
+                return false;
+            }
+        }
+
         public void TurnOffAudio()
         {
             foreach (IAudio audio in _audios)

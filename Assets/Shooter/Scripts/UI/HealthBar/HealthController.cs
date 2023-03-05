@@ -1,4 +1,5 @@
-﻿using Shooter.Player;
+﻿using System;
+using Shooter.Player;
 using Shooter.Tool;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -7,6 +8,8 @@ namespace Shooter.UI
 {
     public class HealthController : IExecute
     {
+        public event Action<int> onHealthChanged;
+
         private readonly string _viewPath = @"Prefabs/UI/Health/HealthBarView";
         private readonly string _configPath = @"Configs/Health/HealthConfig";
 
@@ -32,6 +35,7 @@ namespace Shooter.UI
             _maxHealth = _config.HealthPoints;
             GenerateHealth(_maxHealth);
             _nextRechargeTime = 0f;
+            _view.onHealthChanged += (health) => onHealthChanged?.Invoke(health);
         }
 
         private IHealthBarView LoadView(Transform placeforUI)
