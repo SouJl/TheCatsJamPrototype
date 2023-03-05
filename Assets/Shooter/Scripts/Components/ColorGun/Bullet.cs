@@ -4,9 +4,9 @@ namespace Shooter.Components.ColorGun
 {
     public class Bullet : MonoBehaviour, IBullet
     {
-        [SerializeField] Rigidbody2D rigidbody;
         Vector2 _minScreenBounds;
         Vector2 _maxScreenBounds;
+        Vector3 _velocity;
 
         public void Init()
         {
@@ -18,12 +18,14 @@ namespace Shooter.Components.ColorGun
         public void Launch(Vector3 velocity, Vector3 position)
         {
             gameObject.SetActive(true);
-            rigidbody.velocity = velocity;
             transform.position = position;
+            _velocity = velocity;
         }
 
         void Update()
         {
+            transform.position += _velocity * Time.deltaTime;
+
             Vector3 position = transform.position;
             if (position.x > _maxScreenBounds.x || position.y > _maxScreenBounds.y || position.x < _minScreenBounds.x || position.y < _minScreenBounds.y)
                 gameObject.SetActive(false);
