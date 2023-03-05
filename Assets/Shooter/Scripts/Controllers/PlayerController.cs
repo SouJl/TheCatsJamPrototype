@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace Shooter.Player
 {
-    public class PlayerController : IExecute
+    internal class PlayerController : IExecute
     {
         public Transform playerTransform => _view.transform;
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Shooter.Components.ColorGun
 {
-    public class KillerZoneComponent : MonoBehaviour
+    internal class KillerZoneComponent : MonoBehaviour
     {
         [SerializeField] float killerZoneRadius;
         [SerializeField] CircleCollider2D killerZoneTrigger;

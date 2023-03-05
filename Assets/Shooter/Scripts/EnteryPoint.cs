@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Shooter.Controllers;
 using Shooter.UI;
 using UnityEngine;
+using Shooter.Tool;
 
 namespace Shooter
 {
@@ -19,6 +20,8 @@ namespace Shooter
             var pauseController = new PauseController();
             var scoreController = new ScoreController(_placeForUI);
             var healthBarController = new HealthController(_placeForUI);
+            var bonusMultiplyController = new BonusMultiplyController();
+            var scoreControleller = new ScoreController(_placeForUI, bonusMultiplyController);
             var ammoController = new AmmoController(hardcoreController, _placeForUI);
             var playerController = new PlayerController(ammoController, healthBarController, scoreController);
             var endGameController = new EndGameController(pauseController, healthBarController, _placeForUI);
@@ -27,6 +30,7 @@ namespace Shooter
             _executeObjects.Add(ammoController);
             _executeObjects.Add(hardcoreController);
             _executeObjects.Add(new EnemySpawnController(hardcoreController, playerController.playerTransform));
+            _executeObjects.Add(bonusMultiplyController);
         }
 
         private void Update()
