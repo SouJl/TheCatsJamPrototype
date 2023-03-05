@@ -18,10 +18,9 @@ namespace Shooter
         {
             var hardcoreController = new HardcoreController();
             var pauseController = new PauseController();
-            var scoreController = new ScoreController(_placeForUI);
             var healthBarController = new HealthController(_placeForUI);
             var bonusMultiplyController = new BonusMultiplyController();
-            var scoreControleller = new ScoreController(_placeForUI, bonusMultiplyController);
+            var scoreController = new ScoreController(_placeForUI, bonusMultiplyController);
             var ammoController = new AmmoController(hardcoreController, _placeForUI);
             var playerController = new PlayerController(ammoController, healthBarController, scoreController);
             var endGameController = new EndGameController(pauseController, healthBarController, _placeForUI);
