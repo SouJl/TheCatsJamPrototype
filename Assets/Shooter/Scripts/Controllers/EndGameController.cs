@@ -5,16 +5,18 @@ using UnityEngine;
 
 namespace Shooter.Controllers
 {
-    public class EndGameController
+    internal class EndGameController
     {
         private readonly string _viewPath = @"Prefabs/UI/EndGame/EndGameView";
 
-        readonly PauseController _pauseController;
-        readonly EndGameView _endGameView;
+        private readonly PauseController _pauseController;
+        private readonly ScoreController _scoreController;
+        private readonly EndGameView _endGameView;
 
-        public EndGameController(PauseController pauseController, HealthController healthController, Transform placeforUI)
+        public EndGameController(Transform placeforUI, PauseController pauseController, HealthController healthController, ScoreController scoreController)
         {
             _pauseController = pauseController;
+            _scoreController = scoreController;
             _endGameView = LoadView(placeforUI);
             _endGameView.Init();
 
@@ -26,7 +28,7 @@ namespace Shooter.Controllers
             if (health <= 0)
             {
                 _pauseController.Pause();
-                _endGameView.Show();
+                _endGameView.Show(_scoreController.GameScore);
             }
         }
 
