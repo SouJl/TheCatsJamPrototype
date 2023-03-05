@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76665ebd2576b7d47a451aa81dcb1699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Transform>k__BackingField: {fileID: 0}
 --- !u!212 &4857632024868973654
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -112,9 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6889aeced84e01a40ba7e867435d25ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionDelay: 0.25
-  collisionDetectionCollider: {fileID: 6045008554910312656}
-  explosionRadius: 1.2
+  explosionRadius: 0.2
   defaultColor: {r: 1, g: 0, b: 0, a: 1}
   coloredColor: {r: 0, g: 1, b: 0.8013716, a: 1}
   spriteRenderer: {fileID: 4857632024868973654}

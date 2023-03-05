@@ -81,8 +81,6 @@ namespace Shooter.UI
                     _healthsImage[i].sprite = _helthFullSprite;
                 }
             }
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_healthPlacement);
         }
 
         #region For UI Test

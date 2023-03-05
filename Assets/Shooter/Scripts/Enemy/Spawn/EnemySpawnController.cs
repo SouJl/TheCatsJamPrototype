@@ -13,21 +13,18 @@ namespace Shooter.Enemy
         private readonly string _configPath = @"Configs/Enemy/EnemySpawnConfig";
         private readonly string _viewPath = @"Prefabs/Enemy/EnemySpawn";
 
-        private readonly Transform _playerPos;
+        private readonly Transform _playerTransform;
         private readonly IEnemySpawnConfig _config;
-        private readonly IEnemyPool _enemyPool;
+        private readonly EnemyObjectPool _enemyPool;
         private readonly IEnemySpawnView _view;
 
-        private List<EnemyController> _enemyControllers = new List<EnemyController>();
+        private readonly List<EnemyController> _enemyControllers = new List<EnemyController>();
 
-        public EnemySpawnController(Transform playerPos)
+        public EnemySpawnController(Transform playerTransform)
         {
-            _playerPos = playerPos;
-
+            _playerTransform = playerTransform;
             _config = LoadConfig(_configPath);
-            
             _enemyPool = CreateEnemyPool(_config);
-
             _view = LoadView(_viewPath);
 
             _view.Init(Spawner());
@@ -35,13 +32,17 @@ namespace Shooter.Enemy
 
         #region InitalLoad
 
-        private IEnemySpawnConfig LoadConfig(string path) => 
+        private IEnemySpawnConfig LoadConfig(string path) =>
             Resources.Load<EnemySpawnConfig>(path);
-        
 
-        private IEnemyPool CreateEnemyPool(IEnemySpawnConfig config)
+
+        private EnemyObjectPool CreateEnemyPool(IEnemySpawnConfig config)
         {
             var enemyPool = new EnemyObjectPool(config.PoolConfig);
+            EnemyView[] enemyViews = enemyPool.enemyViews;
+            foreach (EnemyView enemyView in enemyViews)
+                _enemyControllers.Add(new EnemyController(_playerTransform, enemyView));
+
             return enemyPool;
         }
 
@@ -61,31 +62,24 @@ namespace Shooter.Enemy
             {
                 yield return waitTimer;
                 var enemySpawnPos = _config.SpawnPositions[GetSpawnerIndex()];
-                CreateEnemy(enemySpawnPos);
+                SpawnEnemy(enemySpawnPos);
             }
         }
 
-        private void CreateEnemy(Vector3 enemySpawnPos)
+        private void SpawnEnemy(Vector3 enemySpawnPos)
         {
-            var enemyObjectView = _enemyPool.SpawnEnemy();
-            enemyObjectView.transform.position = new Vector3(enemySpawnPos.x, enemySpawnPos.y, 0);
-            var enemyView = enemyObjectView.GetComponent<EnemyView>();
-            _enemyControllers.Add(new EnemyController(_playerPos, enemyView, enemyObjectView, OnEnemyDestroy));
+            var enemyView = _enemyPool.SpawnEnemy();
+            if (enemyView == null)
+            {
+                enemyView = _enemyPool.CreateEnemy();
+                _enemyControllers.Add(new EnemyController(_playerTransform, enemyView));
+            }
+
+            enemyView.gameObject.SetActive(true);
+            enemyView.transform.position = new Vector3(enemySpawnPos.x, enemySpawnPos.y, 0);
         }
 
-        private int GetSpawnerIndex() =>
-            Random.Range(0, _config.SpawnerCount);
-
-        private void OnEnemyDestroy(GameObject gameObject)
-        {
-            var enemyCtrl = _enemyControllers.Find(e => e.GameObject == gameObject);
-            enemyCtrl.Dispose();
-            _enemyControllers.Remove(enemyCtrl);
-
-            _enemyPool.DespawnEnemy(gameObject);
-        }
-
-        #region IExecute
+        private int GetSpawnerIndex() => Random.Range(0, _config.SpawnerCount);
 
         public void Execute()
         {
@@ -93,24 +87,11 @@ namespace Shooter.Enemy
                 enemyController.Execute();
         }
 
-        public void FixedExecute()
-        {
-
-        }
-
-        #endregion
-
-        #region IDisposable
+        public void FixedExecute() { }
 
         public void Dispose()
         {
-
-            foreach (var enemyController in _enemyControllers)
-                enemyController.Dispose();
-
             _enemyControllers.Clear();
         }
-
-        #endregion
     }
 }

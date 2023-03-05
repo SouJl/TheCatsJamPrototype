@@ -15,10 +15,11 @@ namespace Shooter
         private void Awake()
         {
             var healthBarController = new HealthController(_placeForUI);
-            var ammoController = new AmmoController();
+            var ammoController = new AmmoController(_placeForUI);
             var playerController = new PlayerController(ammoController, healthBarController);
 
             _executeObjects.Add(playerController);
+            _executeObjects.Add(ammoController);
             _executeObjects.Add(new EnemySpawnController(playerController.playerTransform));
         }
 
