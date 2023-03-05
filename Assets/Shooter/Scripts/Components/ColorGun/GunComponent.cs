@@ -8,15 +8,12 @@ namespace Shooter.Components.ColorGun
         [SerializeField] float bulletSpeed;
         [SerializeField] PlayerView _playerView;
         [SerializeField] Bullet _colorBulletPrefab;
-        [SerializeField] Bullet _killBulletPrefab;
 
         BulletPool _coloredBulletPool;
-        BulletPool _killBulletPool;
 
         void Awake()
         {
             _coloredBulletPool = new BulletPool();
-            _killBulletPool = new BulletPool();
         }
 
         public void Execute()
@@ -29,18 +26,6 @@ namespace Shooter.Components.ColorGun
                     bullet = Instantiate(_colorBulletPrefab, transform.position, transform.rotation);
                     bullet.Init();
                     _coloredBulletPool.AddBullet(bullet);
-                }
-
-                Shoot(bullet);
-            }
-            else if (Input.GetButtonDown("Fire2"))
-            {
-                var bullet = _killBulletPool.GetBullet();
-                if (bullet == null)
-                {
-                    bullet = Instantiate(_killBulletPrefab, transform.position, transform.rotation);
-                    bullet.Init();
-                    _killBulletPool.AddBullet(bullet);
                 }
 
                 Shoot(bullet);
@@ -65,12 +50,6 @@ namespace Shooter.Components.ColorGun
         public void Dispose()
         {
 
-        }
-
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, 0.5f);
         }
     }
 }
