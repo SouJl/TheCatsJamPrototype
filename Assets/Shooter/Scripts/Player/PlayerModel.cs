@@ -2,14 +2,14 @@
 {
     internal interface IPlayer
     {
-        float HealthPoints { get; }
+        int HealthPoints { get; }
 
         float Speed { get; }
     }
 
     internal class PlayerModel : IPlayer
     {
-        public float HealthPoints { get; private set; }
+        public int HealthPoints { get; private set; }
 
         public float Speed { get; private set; }
 
