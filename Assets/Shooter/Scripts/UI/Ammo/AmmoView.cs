@@ -6,6 +6,8 @@ namespace Shooter.UI
     internal class AmmoView : MonoBehaviour
     {
         [SerializeField] private Image _filler;
+        [SerializeField] AudioSource _audioSource;
+
         private float _currentAmmo;
         AmmoController _ammoController;
 
@@ -16,6 +18,7 @@ namespace Shooter.UI
 
         public void SetAmmo(float percentage)
         {
+            _audioSource.Play();
             _currentAmmo = percentage;
             UpdateBar();
         }

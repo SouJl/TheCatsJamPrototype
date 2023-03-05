@@ -24,6 +24,7 @@ namespace Shooter.UI
         [SerializeField] private Sprite _helthEmptySprite;
         [SerializeField] private Sprite _helthFullSprite;
         [SerializeField] private HealthView _healthItemPrefab;
+        [SerializeField] AudioSource _audioSource;
 
         private List<HealthView> _healths;
         private int _maxHealth;
@@ -48,6 +49,7 @@ namespace Shooter.UI
 
         public void UpdateHealthBar(int currentHealth)
         {
+            _audioSource.Play();
             for (int i = 0; i < _maxHealth; i++)
             {
                 if (i > currentHealth - 1)

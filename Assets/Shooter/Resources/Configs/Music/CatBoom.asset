@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cf102976a2ec4d4a97aff8954b92ae7, type: 3}
-  m_Name: Shoot
+  m_Name: CatBoom
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Shoot
+  <Name>k__BackingField: CatBoom
   <Volume>k__BackingField: 1
   <Pitch>k__BackingField: 1
-  <Loop>k__BackingField: 1
+  <Loop>k__BackingField: 0
   <SpatialBlend>k__BackingField: 0
   <ReverZoneMix>k__BackingField: 1
-  <AudioClip>k__BackingField: {fileID: 8300000, guid: 0a1c00c59125da64ba210a9b2dc033e7, type: 3}
+  <AudioClip>k__BackingField: {fileID: 8300000, guid: a5ab3eefd780f7f4bbcea18110761bcd, type: 3}
   <AudioMixer>k__BackingField: {fileID: 0}
