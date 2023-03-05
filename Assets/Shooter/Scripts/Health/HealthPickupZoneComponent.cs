@@ -5,13 +5,10 @@ namespace Shooter.Components.ColorGun
 {
     public class HealthPickupZoneComponent : MonoBehaviour
     {
-        [SerializeField] float healthPickupZoneRadius;
-        [SerializeField] CircleCollider2D healthPickupZoneTrigger;
         HealthController _healthController;
 
         public void Init(HealthController healthController)
         {
-            healthPickupZoneTrigger.radius = healthPickupZoneRadius;
             _healthController = healthController;
         }
 
@@ -23,12 +20,6 @@ namespace Shooter.Components.ColorGun
                 _healthController.IncreaseHealth();
                 health.gameObject.SetActive(false);
             }
-        }
-
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawWireSphere(transform.position, healthPickupZoneRadius);
         }
     }
 }

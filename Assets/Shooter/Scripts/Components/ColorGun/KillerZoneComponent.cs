@@ -5,18 +5,15 @@ namespace Shooter.Components.ColorGun
 {
     public class KillerZoneComponent : MonoBehaviour
     {
-        [SerializeField] float killerZoneRadius;
-        [SerializeField] CircleCollider2D killerZoneTrigger;
         AmmoController _ammoController;
         HealthController _healthController;
         ScoreController _scoreController;
 
         public void Init(
-            AmmoController ammoController, 
+            AmmoController ammoController,
             HealthController healthController,
             ScoreController scoreController)
         {
-            killerZoneTrigger.radius = killerZoneRadius;
             _ammoController = ammoController;
             _healthController = healthController;
             _scoreController = scoreController;
@@ -39,12 +36,6 @@ namespace Shooter.Components.ColorGun
                     _healthController.DecreaseHealth();
                 }
             }
-        }
-
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, killerZoneRadius);
         }
     }
 }

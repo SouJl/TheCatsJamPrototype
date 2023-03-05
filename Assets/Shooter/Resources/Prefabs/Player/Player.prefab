@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 603611881189004902}
   - component: {fileID: 603611881189004826}
   - component: {fileID: 6394243022088086660}
-  - component: {fileID: 291321976434200934}
+  - component: {fileID: 3392784770052464849}
   - component: {fileID: 137594749748237088}
   - component: {fileID: 2002129512223294977}
   m_Layer: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _killerZoneComponent: {fileID: 6394243022088086660}
+  _healthPickupZoneComponent: {fileID: 3392784770052464849}
   _gunComponent: {fileID: 4243462742682510339}
 --- !u!212 &603611881189004902
 SpriteRenderer:
@@ -131,9 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31435c9996cc63f4ab0f3c4f9fd5e049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killerZoneRadius: 0.37
-  killerZoneTrigger: {fileID: 137594749748237088}
---- !u!114 &291321976434200934
+--- !u!114 &3392784770052464849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,8 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5445b1b7578f04d409180c188ff82b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPickupZoneRadius: 2.5
-  healthPickupZoneTrigger: {fileID: 137594749748237088}
 --- !u!58 &137594749748237088
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -162,7 +159,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0047130287, y: 0}
   serializedVersion: 2
-  m_Radius: 0.39354154
+  m_Radius: 0.5
 --- !u!50 &2002129512223294977
 Rigidbody2D:
   serializedVersion: 4

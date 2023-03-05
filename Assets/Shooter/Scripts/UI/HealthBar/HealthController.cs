@@ -27,14 +27,14 @@ namespace Shooter.UI
         {
             _view = LoadView(placeforUI);
             _config = LoadConfig(_configPath);
-            _view.Init(_config.HealthPoints);
-
-            _healthSpawner = Object.Instantiate(ResourceLoader.LoadPrefab(_healthSpawnerPrefab), placeforUI, false).GetComponent<HealthSpawner>();
-            _healthSpawner.Init();
 
             _maxHealth = _config.HealthPoints;
-            GenerateHealth(_maxHealth);
+            _currentHealth = _maxHealth;
+            _view.Init(_maxHealth);
+
+            _healthSpawner = LoadSpawnerView();
             _nextRechargeTime = 0f;
+
             _view.onHealthChanged += (health) => onHealthChanged?.Invoke(health);
         }
 
@@ -44,10 +44,11 @@ namespace Shooter.UI
             return objectView.GetComponent<HealthBarView>();
         }
 
-        public void GenerateHealth(int count) 
+        private HealthSpawner LoadSpawnerView()
         {
-            _view.GenerateHealth(count);
-            _currentHealth = _maxHealth;
+            var spawner = Object.Instantiate(ResourceLoader.LoadPrefab(_healthSpawnerPrefab)).GetComponent<HealthSpawner>();
+            spawner.Init(_config.LifeTime);
+            return spawner;
         }
 
         public void IncreaseHealth()
@@ -56,6 +57,7 @@ namespace Shooter.UI
             _currentHealth = resultHealth > _maxHealth ? _maxHealth : resultHealth;
 
             _view.UpdateHealthBar(_currentHealth);
+            onHealthChanged?.Invoke(_currentHealth);
         }
 
         public void DecreaseHealth()
@@ -64,6 +66,7 @@ namespace Shooter.UI
             _currentHealth = resultHealth < 0 ? 0 : resultHealth;
 
             _view.UpdateHealthBar(_currentHealth);
+            onHealthChanged?.Invoke(_currentHealth);
         }
 
         private IHealthConfig LoadConfig(string path) => ResourceLoader.LoadObject<HealthConfig>(path);
@@ -72,11 +75,11 @@ namespace Shooter.UI
         {
             if (_currentHealth < _maxHealth)
             {
-                if (Time.time > _nextRechargeTime)
+                _nextRechargeTime += Time.deltaTime;
+                if (_nextRechargeTime >= _config.SpawnPeriod)
                 {
-                    _nextRechargeTime += _config.SpawnPeriod;
-                    
                     _healthSpawner.Spawn();
+                    _nextRechargeTime = 0f;
                 }
             }
         }

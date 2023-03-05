@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: HealthConfig
   m_EditorClassIdentifier: 
   <HealthPoints>k__BackingField: 3
+  <SpawnPeriod>k__BackingField: 5
+  <LifeTime>k__BackingField: 3

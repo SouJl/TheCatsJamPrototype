@@ -11,7 +11,6 @@ namespace Shooter.UI
         event Action<int> onHealthChanged;
 
         void Init(int maxHealth);
-        void GenerateHealth(int count);
         void UpdateHealthBar(int currentHealth);
     }
 
@@ -38,23 +37,21 @@ namespace Shooter.UI
             GenerateHealth(_maxHealth);
         }
 
-        public void GenerateHealth(int count)
+        void GenerateHealth(int count)
         {
             for(int i = 0; i < count; i++)
             {
-               HealthView healthView = Instantiate(_healthItemPrefab, _healthPlacement, false);
-               healthView.SetSprite(_helthFullSprite);
-               _healths.Add(healthView);
+                HealthView healthView = Instantiate(_healthItemPrefab, _healthPlacement, false);
+                healthView.SetSprite(_helthFullSprite);
+                _healths.Add(healthView);
             }
         }
 
-        public void UpdateHealthBar(int _currentHealth)
+        public void UpdateHealthBar(int currentHealth)
         {
-            if (_healths == null) return;
-
             for (int i = 0; i < _maxHealth; i++)
             {
-                if (i > _currentHealth - 1)
+                if (i > currentHealth - 1)
                 {
                     _healths[i].SetSprite(_helthEmptySprite);
                 }
