@@ -18,5 +18,5 @@ MonoBehaviour:
   <Loop>k__BackingField: 1
   <SpatialBlend>k__BackingField: 0
   <ReverZoneMix>k__BackingField: 1
-  <AudioClip>k__BackingField: {fileID: 8300000, guid: b5a5002c0e27c4744a8983c3aeca2f36, type: 3}
+  <AudioClip>k__BackingField: {fileID: 8300000, guid: 4b8639d02962ae849a9dce903225a44e, type: 3}
   <AudioMixer>k__BackingField: {fileID: 0}

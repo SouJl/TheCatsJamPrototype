@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5106501281f1aa44a34001b989a57aa, type: 3}
   m_Name: EnemySpawnConfig
   m_EditorClassIdentifier: 
-  <SwpawnRate>k__BackingField: 1.2
+  <SwpawnRate>k__BackingField: 1.7
   _poolConfig: {fileID: 11400000, guid: 08cdc5cb793b6244f8e4192f2647d70d, type: 2}
   _spawnPositions:
   - {x: -10, y: 0, z: 0}
