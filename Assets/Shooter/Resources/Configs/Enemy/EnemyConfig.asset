@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 2.5
-  <RotationSpeed>k__BackingField: 0.0025
+  <RotationSpeed>k__BackingField: 0.01
