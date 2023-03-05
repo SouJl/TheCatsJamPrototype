@@ -7,6 +7,7 @@ namespace Shooter
 {
     internal class EnteryPoint : MonoBehaviour
     {
+        [SerializeField] private Transform _placeForUI;
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private Components.ColorGun.GunComponent _gun;
 
@@ -36,7 +37,7 @@ namespace Shooter
 
         private IExecute CreatePlayerController(IPlayerView view)
         {
-            var controller = new PlayerController(view);
+            var controller = new PlayerController(_placeForUI, view);
             return controller;
         }
 
