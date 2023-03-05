@@ -44,6 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fa0e7484a8e5a468e8766583bc7609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 15
+  _bulletSpeed: 15
   _colorBulletPrefab: {fileID: 5233882238840161993, guid: 48acbcff90c134ccf887b97709f7fbdd, type: 3}
-  _killBulletPrefab: {fileID: 2031356768047734459, guid: 5a5e34aa2231ecf4bb995c77ce3d8b18, type: 3}

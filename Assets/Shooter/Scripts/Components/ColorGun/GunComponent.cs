@@ -3,23 +3,25 @@ using UnityEngine;
 
 namespace Shooter.Components.ColorGun
 {
-    public class GunComponent : MonoBehaviour, IExecute
+    public class GunComponent : MonoBehaviour
     {
-        [SerializeField] AmmoManager _ammoManager;
         [SerializeField] float _bulletSpeed;
-        [SerializeField] PlayerView _playerView;
         [SerializeField] Bullet _colorBulletPrefab;
 
         BulletPool _coloredBulletPool;
+        AmmoController _ammoController;
+        Transform _playerTransform;
 
-        void Awake()
+        public void Init(AmmoController ammoController, Transform playerTransform)
         {
             _coloredBulletPool = new BulletPool();
+            _ammoController = ammoController;
+            _playerTransform = playerTransform;
         }
 
-        public void Execute()
+        public void Update()
         {
-            if (Input.GetButtonDown("Fire1") && _ammoManager.CurrentAmmo > 0)
+            if (Input.GetButtonDown("Fire1") && _ammoController.CurrentAmmo > 0)
             {
                 var bullet = _coloredBulletPool.GetBullet();
                 if (bullet == null)
@@ -30,8 +32,7 @@ namespace Shooter.Components.ColorGun
                 }
 
                 Shoot(bullet);
-
-                _ammoManager.SubstractAmmo(_ammoManager.ammoPerShot);
+                _ammoController.ResetAmmo();
             }
         }
 
@@ -41,18 +42,7 @@ namespace Shooter.Components.ColorGun
             Vector2 toMouseDirection = (mousePos - transform.position).normalized;
             Vector3 bulletVelocity = toMouseDirection * _bulletSpeed;
 
-            bullet.Launch(bulletVelocity, _playerView.transform.position);
-        }
-
-
-        public void FixedExecute()
-        {
-
-        }
-
-        public void Dispose()
-        {
-
+            bullet.Launch(bulletVelocity, _playerTransform.position);
         }
     }
 }

@@ -1,6 +1,7 @@
 using Shooter.Enemy;
 using Shooter.Player;
 using System.Collections.Generic;
+using Shooter.UI;
 using UnityEngine;
 
 namespace Shooter
@@ -8,19 +9,17 @@ namespace Shooter
     internal class EnteryPoint : MonoBehaviour
     {
         [SerializeField] private Transform _placeForUI;
-        [SerializeField] private PlayerView _playerView;
-        [SerializeField] private Components.ColorGun.GunComponent _gun;
 
         private List<IExecute> _executeObjects = new List<IExecute>();
 
         private void Awake()
         {
-            var playerController = CreatePlayerController(_playerView);
-            _executeObjects.Add(playerController);
+            var healthBarController = new HealthController(_placeForUI);
+            var ammoController = new AmmoController();
+            var playerController = new PlayerController(ammoController, healthBarController);
 
-            var enemySpawnController = CreateEnemyController();
-            _executeObjects.Add(enemySpawnController);
-            _executeObjects.Add(_gun);
+            _executeObjects.Add(playerController);
+            _executeObjects.Add(new EnemySpawnController(playerController.playerTransform));
         }
 
         private void Update()
@@ -33,18 +32,6 @@ namespace Shooter
         {
             foreach (IExecute _executeObject in _executeObjects)
                 _executeObject.FixedExecute();
-        }
-
-        private IExecute CreatePlayerController(IPlayerView view)
-        {
-            var controller = new PlayerController(_placeForUI, view);
-            return controller;
-        }
-
-        private IExecute CreateEnemyController()
-        {
-            var controller = new EnemySpawnController(_playerView.transform);
-            return controller;
         }
     }
 }

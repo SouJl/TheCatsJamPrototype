@@ -2,50 +2,48 @@
 using Shooter.UI;
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Shooter.Player
 {
-    internal class PlayerController : IExecute
+    public class PlayerController : IExecute
     {
-        private readonly string _configPath= @"Configs/Player/PlayerConfig";
+        public Transform playerTransform => _view.transform;
 
-        private readonly IPlayerView _view;
+        private readonly string _configPath= @"Configs/Player/PlayerConfig";
+        private readonly string _viewPath = @"Prefabs/Player/Player";
+
+        private readonly PlayerView _view;
         private readonly IPlayerConfig _config;
         private readonly IPlayer _playerModel;
 
-        private HealthBarController _healthBarController;
-
-        public PlayerController(Transform placeForUI, IPlayerView view)
+        public PlayerController(AmmoController ammoController, HealthController healthController)
         {
-            _view 
-                = view ?? throw new ArgumentNullException(nameof(view));
+            _view = LoadView(_viewPath);
+            _view.Init(ammoController, healthController);
 
             _config = LoadConfig(_configPath);
-
             _playerModel = new PlayerModel(_config);
-
-            _healthBarController = CreateHealthBatController(placeForUI, _playerModel);
         }
 
-        private IPlayerConfig LoadConfig(string path) => 
-            ResourceLoader.LoadObject<PlayerConfig>(path);
+        private IPlayerConfig LoadConfig(string path) => ResourceLoader.LoadObject<PlayerConfig>(path);
 
-        private HealthBarController CreateHealthBatController(Transform placeForUI, IPlayer playerModel)
+        private PlayerView LoadView(string path)
         {
-            var healthBarController = new HealthBarController(placeForUI, playerModel);
-            return healthBarController;
+            GameObject objectView = Object.Instantiate(ResourceLoader.LoadPrefab(path));
+            return objectView.GetComponent<PlayerView>();
         }
 
         #region IExecute
 
         public void Execute()
         {
-            
+
         }
 
         public void FixedExecute()
         {
-            
+
         }
 
         #endregion
@@ -54,7 +52,7 @@ namespace Shooter.Player
 
         public void Dispose()
         {
-            
+
         }
 
         #endregion
