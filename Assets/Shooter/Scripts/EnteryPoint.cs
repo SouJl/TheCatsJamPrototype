@@ -17,8 +17,9 @@ namespace Shooter
         {
             var pauseController = new PauseController();
             var healthBarController = new HealthController(_placeForUI);
+            var scoreControleller = new ScoreController(_placeForUI);
             var ammoController = new AmmoController(_placeForUI);
-            var playerController = new PlayerController(ammoController, healthBarController);
+            var playerController = new PlayerController(ammoController, healthBarController, scoreControleller);
             var endGameController = new EndGameController(pauseController, healthBarController, _placeForUI);
 
             _executeObjects.Add(playerController);
