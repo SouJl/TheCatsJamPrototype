@@ -38,10 +38,11 @@ namespace Shooter.Tool
         {
             if (_lastUpdateTime > _config.ScoreResetTime && !IsRecquestMultiply)
             {
-                if(_lastUpdateTime > _config.ScoreResetTime + _timerResetDelay)
+                CurrentBonusMultiply = 1;
+                IsRecquestMultiply = false;
+
+                if (_lastUpdateTime > _config.ScoreResetTime + _timerResetDelay)
                 {
-                    CurrentBonusMultiply = 1;
-                    IsRecquestMultiply = false;
                     _lastUpdateTime = 0;
                     OnMultiplyUpdate?.Invoke(CurrentBonusMultiply);
                 }
