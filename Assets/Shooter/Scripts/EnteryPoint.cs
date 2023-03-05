@@ -22,7 +22,7 @@ namespace Shooter
             var bonusMultiplyController = new BonusMultiplyController();
             var scoreController = new ScoreController(_placeForUI, bonusMultiplyController);
             var ammoController = new AmmoController(hardcoreController, _placeForUI);
-            var playerController = new PlayerController(ammoController, healthBarController, scoreController);
+            var playerController = new PlayerController(ammoController, healthBarController, scoreController, pauseController);
             var endGameController = new EndGameController(_placeForUI, pauseController, healthBarController, scoreController);
 
             _executeObjects.Add(healthBarController);

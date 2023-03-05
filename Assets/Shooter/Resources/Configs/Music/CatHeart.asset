@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cf102976a2ec4d4a97aff8954b92ae7, type: 3}
-  m_Name: Music
+  m_Name: CatHeart
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Music
+  <Name>k__BackingField: CatHeart
   <Volume>k__BackingField: 1
   <Pitch>k__BackingField: 1
-  <Loop>k__BackingField: 1
+  <Loop>k__BackingField: 0
   <SpatialBlend>k__BackingField: 0
   <ReverZoneMix>k__BackingField: 1
-  <AudioClip>k__BackingField: {fileID: 8300000, guid: 4b8639d02962ae849a9dce903225a44e, type: 3}
+  <AudioClip>k__BackingField: {fileID: 8300000, guid: 70266e57b1f41864d9ce5f3b3aec3934, type: 3}
   <AudioMixer>k__BackingField: {fileID: 0}

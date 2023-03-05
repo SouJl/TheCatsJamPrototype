@@ -54,6 +54,7 @@ MonoBehaviour:
   _killerZoneComponent: {fileID: 6394243022088086660}
   _healthPickupZoneComponent: {fileID: 3392784770052464849}
   _gunComponent: {fileID: 4243462742682510339}
+  _movementManager: {fileID: 603611881189004826}
 --- !u!212 &603611881189004902
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -119,7 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _animator: {fileID: 0}
 --- !u!114 &6394243022088086660
 MonoBehaviour:
   m_ObjectHideFlags: 0
