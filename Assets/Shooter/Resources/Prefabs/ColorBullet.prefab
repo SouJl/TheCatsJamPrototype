@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2031356768047734458}
   - component: {fileID: 5233882238840161993}
-  - component: {fileID: 2031356768047734460}
   - component: {fileID: 2031356768047734461}
   - component: {fileID: 2031356768047734462}
+  - component: {fileID: 4094267818323290097}
   m_Layer: 0
   m_Name: ColorBullet
   m_TagString: Untagged
@@ -47,28 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0678ce397ad4bf5bab916d2322e1d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 2031356768047734460}
---- !u!50 &2031356768047734460
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031356768047734463}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!212 &2031356768047734461
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -137,3 +115,24 @@ CircleCollider2D:
   m_Offset: {x: -0.0070686936, y: 0}
   serializedVersion: 2
   m_Radius: 0.5804983
+--- !u!50 &4094267818323290097
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031356768047734463}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
