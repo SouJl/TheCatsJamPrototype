@@ -35,6 +35,7 @@ namespace Shooter.Components.ColorGun
                 }
                 else
                 {
+                    explosive.Damage();
                     _healthController.DecreaseHealth();
                 }
             }

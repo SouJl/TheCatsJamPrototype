@@ -1,34 +1,43 @@
 ﻿using Shooter;
 using Shooter.Player;
 using Shooter.Tool;
+using Shooter.UI;
 using UnityEngine;
 
 public class AmmoController : IExecute
 {
-    public float CurrentAmmo => _currentAmmo;
     private readonly string _configPath = @"Configs/Ammo/AmmoConfig";
+    private readonly string _viewPath = @"Prefabs/UI/Health/AmmoView";
 
-    IAmmoConfig _config;
+    readonly AmmoView _view;
+    readonly IAmmoConfig _config;
     float _currentAmmo;
+
+    float _currentRechargeTime;
     float _nextRechargeTime;
 
-    public AmmoController()
+    public AmmoController(Transform placeForUI)
     {
-        _config = LoadConfig(_configPath);
         _currentAmmo = 1f;
-        _nextRechargeTime = 0f;
+        _view = LoadView(placeForUI);
+        _view.Init(_currentAmmo);
+
+        _config = LoadConfig(_configPath);
+        _nextRechargeTime = _currentRechargeTime + _config.AmmoRechargePeriod;
     }
 
     public void Execute()
     {
-        //if (_currentAmmo < 1f)
-        //{
-        //    if (Time.time > _nextRechargeTime)
-        //    {
-        //        _nextRechargeTime += ammoRechargePeriod;
-        //        AddAmmo(ammoPerRecharge);
-        //    }
-        //}
+        if (_currentAmmo < 1f)
+        {
+            _currentRechargeTime += Time.deltaTime;
+            if (_currentRechargeTime > _nextRechargeTime)
+            {
+                _currentRechargeTime = _nextRechargeTime;
+                _nextRechargeTime = _currentRechargeTime + _config.AmmoRechargePeriod;
+                AddTimerAmmo();
+            }
+        }
     }
 
     public bool CanShoot()
@@ -41,14 +50,25 @@ public class AmmoController : IExecute
         _currentAmmo += _config.AmmoPerEnemy;
 
         if (_currentAmmo > 1f)
-        {
             _currentAmmo = 1f;
-        }
+
+        _view.SetAmmo(_currentAmmo);
+    }
+
+    void AddTimerAmmo()
+    {
+        _currentAmmo += _config.AmmoPerRecharge;
+
+        if (_currentAmmo > 1f)
+            _currentAmmo = 1f;
+
+        _view.SetAmmo(_currentAmmo);
     }
 
     public void ResetAmmo()
     {
         _currentAmmo = 0;
+        _view.SetAmmo(_currentAmmo);
     }
 
     public void Dispose() { }
@@ -56,4 +76,10 @@ public class AmmoController : IExecute
     public void FixedExecute() { }
 
     private IAmmoConfig LoadConfig(string path) => ResourceLoader.LoadObject<AmmoConfig>(path);
+
+    AmmoView LoadView(Transform placeforUI)
+    {
+        GameObject objectView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath), placeforUI, false);
+        return objectView.GetComponent<AmmoView>();
+    }
 }

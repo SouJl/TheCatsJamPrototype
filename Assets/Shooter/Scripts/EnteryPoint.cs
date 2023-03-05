@@ -1,6 +1,7 @@
 using Shooter.Enemy;
 using Shooter.Player;
 using System.Collections.Generic;
+using Shooter.Controllers;
 using Shooter.UI;
 using UnityEngine;
 
@@ -14,12 +15,17 @@ namespace Shooter
 
         private void Awake()
         {
+            var pauseController = new PauseController();
             var healthBarController = new HealthController(_placeForUI);
             var scoreControleller = new ScoreController(_placeForUI);
             var ammoController = new AmmoController();
             var playerController = new PlayerController(ammoController, healthBarController, scoreControleller);
+            var ammoController = new AmmoController(_placeForUI);
+            var playerController = new PlayerController(ammoController, healthBarController);
+            var endGameController = new EndGameController(pauseController, healthBarController, _placeForUI);
 
             _executeObjects.Add(playerController);
+            _executeObjects.Add(ammoController);
             _executeObjects.Add(new EnemySpawnController(playerController.playerTransform));
         }
 
