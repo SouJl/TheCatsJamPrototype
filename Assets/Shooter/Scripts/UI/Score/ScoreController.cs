@@ -14,6 +14,8 @@ namespace Shooter.UI
         private int _scoreMuliply;
         private int _scoreAmount;
 
+        public int GameScore => _scoreAmount;
+
         public ScoreController(Transform placeforUI)
         {
             _scoreMuliply = 1;
