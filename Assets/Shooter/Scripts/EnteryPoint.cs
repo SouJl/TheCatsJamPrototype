@@ -2,6 +2,7 @@ using Shooter.Enemy;
 using Shooter.Player;
 using System.Collections.Generic;
 using Shooter.Controllers;
+using Shooter.Scripts.Controllers;
 using Shooter.UI;
 using UnityEngine;
 using Shooter.Tool;

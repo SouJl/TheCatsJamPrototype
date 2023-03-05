@@ -18,7 +18,7 @@ namespace Shooter.Components.ColorGun
             if (health != null)
             {
                 _healthController.IncreaseHealth();
-                health.gameObject.SetActive(false);
+                health.Consume();
             }
         }
     }
