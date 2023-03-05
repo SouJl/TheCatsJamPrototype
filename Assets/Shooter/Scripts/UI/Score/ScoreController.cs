@@ -1,28 +1,39 @@
 ﻿using Shooter.Tool;
+using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Shooter.UI
 {
-    public class ScoreController
+    internal class ScoreController
     {
         private readonly string _viewPath = @"Prefabs/UI/Score/ScoreView";
         private readonly string _configPath = @"Configs/Score/ScoreConfig";
 
         private readonly IScoreView _view;
         private readonly IScoreConfig _config;
-        private int _scoreMuliply;
+
+        private readonly IBonusMultyManager _multyManager;
+
+        private int _scroeMultiply;
         private int _scoreAmount;
 
         public int GameScore => _scoreAmount;
 
-        public ScoreController(Transform placeforUI)
+        public ScoreController(
+            Transform placeforUI, 
+            IBonusMultyManager multyManager)
         {
-            _scoreMuliply = 1;
+            _scroeMultiply = 1;
             _scoreAmount = 0;
 
             _view = LoadView(placeforUI);
             _config = LoadConfig(_configPath);
+
+            _multyManager 
+                = multyManager ?? throw new ArgumentNullException(nameof(multyManager));
+
+            _multyManager.OnMultiplyUpdate += UpdateScoreMultiply;
 
             _view.Init(_scoreAmount);
         }
@@ -38,15 +49,15 @@ namespace Shooter.UI
 
         public void IncreaseScoreValue()
         {
-            _scoreAmount += _config.ScoreAmount * _scoreMuliply;
+            _scoreAmount += _config.ScoreAmount * _scroeMultiply;
             _view.UpdateScoreValue(_scoreAmount);
+            _multyManager.IsRecquestMultiply = true;
         }
 
-        public void IncreaseScoreMuliply() 
+        public void UpdateScoreMultiply(int value)
         {
-            _scoreMuliply++;
+            _scroeMultiply = value;
+            _view.UpdateScoreMulty(_scroeMultiply);
         }
-
-        public void ReserScoreMuliply() => _scoreMuliply = 0;
     }
 }
