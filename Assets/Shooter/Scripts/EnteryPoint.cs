@@ -15,8 +15,9 @@ namespace Shooter
         private void Awake()
         {
             var healthBarController = new HealthController(_placeForUI);
+            var scoreControleller = new ScoreController(_placeForUI);
             var ammoController = new AmmoController();
-            var playerController = new PlayerController(ammoController, healthBarController);
+            var playerController = new PlayerController(ammoController, healthBarController, scoreControleller);
 
             _executeObjects.Add(playerController);
             _executeObjects.Add(new EnemySpawnController(playerController.playerTransform));
