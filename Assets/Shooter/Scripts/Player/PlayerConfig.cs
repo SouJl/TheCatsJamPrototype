@@ -4,7 +4,7 @@ namespace Shooter.Player
 {
     internal interface IPlayerConfig
     {
-        float HealthPoints { get; }
+        int HealthPoints { get; }
 
         float Speed { get; }
     }
@@ -14,7 +14,7 @@ namespace Shooter.Player
         menuName = "Configs/Player/" + nameof(PlayerConfig))]
     internal class PlayerConfig : ScriptableObject, IPlayerConfig
     {
-        [field: SerializeField] public float HealthPoints { get; private set; } = 150f;
+        [field: SerializeField] public int HealthPoints { get; private set; } = 3;
 
         [field: SerializeField] public float Speed { get; private set; } = 10f;
     }

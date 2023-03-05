@@ -7,7 +7,7 @@ namespace Shooter.UI
 {
     internal class HealthBarController
     {
-        private readonly string _viewPath = @"Prefabs/UI/HealthBarView";
+        private readonly string _viewPath = @"Prefabs/UI/Health/HealthBarView";
 
         private readonly IHealthBarView _view;
 
