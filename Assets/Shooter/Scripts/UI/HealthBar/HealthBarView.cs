@@ -8,34 +8,33 @@ namespace Shooter.UI
 {
     internal interface IHealthBarView
     {
+        event Action<int> onHealthChanged;
+
         void Init(int maxHealth);
-        void IncreaseHealth();
         void DecreaseHealth();
     }
 
     internal class HealthBarView : MonoBehaviour, IHealthBarView
     {
+        public event Action<int> onHealthChanged;
+
         [SerializeField] private RectTransform _healthPlacement;
         [SerializeField] private Sprite _helthEmptySprite;
         [SerializeField] private Sprite _helthFullSprite;
-        [SerializeField] private Image _healthItemPrefab;
+        [SerializeField] private HealthView _healthItemPrefab;
 
-        private List<Image> _healthsImage;
+        private List<HealthView> _healths;
         private int _maxHealth;
         private int _currentHealth;
 
         private void Awake()
         {
-            _healthsImage = new List<Image>();
+            _healths = new List<HealthView>();
         }
 
         public void Init(int maxHealth)
         {
-            if (!_healthItemPrefab)
-                throw new ArgumentNullException(nameof(_healthItemPrefab));
-
             _maxHealth = maxHealth;
-
             GenerateHealth(_maxHealth);
         }
 
@@ -45,6 +44,7 @@ namespace Shooter.UI
             _currentHealth = resultHealth > _maxHealth ? _maxHealth : resultHealth;
 
             UpdateHealthBar();
+            onHealthChanged?.Invoke(_currentHealth);
         }
 
         public void DecreaseHealth()
@@ -53,14 +53,16 @@ namespace Shooter.UI
             _currentHealth = resultHealth < 0 ? 0 : resultHealth;
 
             UpdateHealthBar();
+            onHealthChanged?.Invoke(_currentHealth);
         }
 
         private void GenerateHealth(int count)
         {
             for(int i =0; i < count; i++)
             {
-               Image newHealtPoint = Instantiate(_healthItemPrefab, _healthPlacement, false);
-                _healthsImage.Add(newHealtPoint);
+               HealthView healthView = Instantiate(_healthItemPrefab, _healthPlacement, false);
+               healthView.SetSprite(_helthFullSprite);
+               _healths.Add(healthView);
             }
 
             _currentHealth = _maxHealth;
@@ -68,17 +70,17 @@ namespace Shooter.UI
 
         private void UpdateHealthBar()
         {
-            if (_healthsImage == null) return;
+            if (_healths == null) return;
 
             for (int i = 0; i < _maxHealth; i++)
             {
                 if (i > _currentHealth - 1)
                 {
-                    _healthsImage[i].sprite = _helthEmptySprite;
+                    _healths[i].SetSprite(_helthEmptySprite);
                 }
                 else
                 {
-                    _healthsImage[i].sprite = _helthFullSprite;
+                    _healths[i].SetSprite(_helthFullSprite);
                 }
             }
         }

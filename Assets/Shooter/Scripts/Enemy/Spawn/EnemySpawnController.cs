@@ -30,8 +30,6 @@ namespace Shooter.Enemy
             _view.Init(Spawner());
         }
 
-        #region InitalLoad
-
         private IEnemySpawnConfig LoadConfig(string path) =>
             Resources.Load<EnemySpawnConfig>(path);
 
@@ -51,8 +49,6 @@ namespace Shooter.Enemy
             GameObject objectView = Object.Instantiate(ResourceLoader.LoadPrefab(path));
             return objectView.GetComponent<EnemySpawnView>();
         }
-
-        #endregion
 
         private IEnumerator Spawner()
         {
