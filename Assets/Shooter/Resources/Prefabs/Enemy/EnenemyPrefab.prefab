@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 2332840307632062821}
   - component: {fileID: 6045008554910312656}
   - component: {fileID: 3345541058675111949}
+  - component: {fileID: 7929756161192579825}
   m_Layer: 0
   m_Name: EnenemyPrefab
   m_TagString: Untagged
@@ -149,7 +150,7 @@ MonoBehaviour:
   coloredSprite: {fileID: 21300000, guid: ab45482b9d5e52c4bb4d468df6c03aad, type: 3}
   spriteRenderer: {fileID: 3087835563328877086}
   _enemyView: {fileID: 3633631294945559975}
-  _audioSource: {fileID: 854916931684640994}
+  _audioSource: {fileID: 7929756161192579825}
 --- !u!58 &6045008554910312656
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!82 &854916931684640994
+--- !u!82 &7929756161192579825
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,9 +198,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a5ab3eefd780f7f4bbcea18110761bcd, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.85
   m_Pitch: 1
   Loop: 0
   Mute: 0
