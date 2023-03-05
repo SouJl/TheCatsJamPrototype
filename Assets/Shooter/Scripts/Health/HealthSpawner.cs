@@ -15,7 +15,7 @@ public class HealthSpawner : MonoBehaviour
         _healthPool = new HealthPool();
 
         _minScreenBounds
-            = Camera.main.ScreenToWorldPoint(new Vector2(0, 0));
+            = Camera.main.ScreenToWorldPoint(new Vector2(_screenOffset.x, _screenOffset.y));
         _maxScreenBounds
             = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width - _screenOffset.x, Screen.height - _screenOffset.y));
     }
