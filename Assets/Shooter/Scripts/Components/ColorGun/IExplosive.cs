@@ -5,5 +5,6 @@
         bool IsExploding { get; }
         void SetExplosive();
         void Explode();
+        void Damage();
     }
 }

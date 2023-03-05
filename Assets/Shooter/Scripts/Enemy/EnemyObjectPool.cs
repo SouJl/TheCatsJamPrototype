@@ -9,62 +9,49 @@ namespace Shooter.Enemy
 {
     internal interface IEnemyPool
     {
-        GameObject SpawnEnemy();
-        void DespawnEnemy(GameObject enemy);
+        EnemyView SpawnEnemy();
     }
 
     internal class EnemyObjectPool : IEnemyPool
     {
+        public EnemyView[] enemyViews => _enemyPool.ToArray();
+
         private readonly string _prefabPath = "Prefabs/Enemy/EnenemyPrefab";
-
         private readonly IObjectPoolConfig _config;
-
-        private readonly Stack<GameObject> _enemyPool = new Stack<GameObject>();
-        private readonly GameObject _enemyPrefab;
+        private readonly List<EnemyView> _enemyPool = new();
+        private readonly EnemyView _enemyPrefab;
         private readonly Transform _root;
 
         public EnemyObjectPool(IObjectPoolConfig config)
         {
-            _config
-                = config ?? throw new ArgumentNullException(nameof(config));
-
-            _enemyPrefab = ResourceLoader.LoadPrefab(_prefabPath);
+            _config = config;
+            _enemyPrefab = ResourceLoader.LoadObject<EnemyView>(_prefabPath);
             _root = new GameObject($"[{nameof(EnemyObjectPool)}]").transform;
 
             GenerateEnemies(_config.PoolSize);
         }
 
-        private void GenerateEnemies(int amount) 
+        private void GenerateEnemies(int amount)
         {
             for (int i = 0; i < amount; i++)
             {
-                var enemy = Object.Instantiate(_enemyPrefab);
-                enemy.transform.SetParent(_root);
-                enemy.SetActive(false);
-                
-                _enemyPool.Push(enemy);
+                EnemyView enemy = Object.Instantiate(_enemyPrefab, _root, true);
+                enemy.gameObject.SetActive(false);
+                _enemyPool.Add(enemy);
             }
         }
 
-        public GameObject SpawnEnemy()
+        public EnemyView CreateEnemy()
         {
-            if (_enemyPool.Any())
-            {
-                var enemy = _enemyPool.Pop();
-                enemy.SetActive(true);
-                return enemy;
-            }
-
-            GameObject newEnemy = Object.Instantiate(_enemyPrefab);
-            newEnemy.transform.SetParent(_root);
-
-            return newEnemy;
+            EnemyView enemyView = Object.Instantiate(_enemyPrefab, _root, true);
+            enemyView.gameObject.SetActive(false);
+            _enemyPool.Add(enemyView);
+            return enemyView;
         }
 
-        public void DespawnEnemy(GameObject enemy)
+        public EnemyView SpawnEnemy()
         {
-            enemy.SetActive(false);
-            _enemyPool.Push(enemy);
+            return _enemyPool.Find(enemy => !enemy.gameObject.activeSelf);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Shooter.Components.ColorGun
         [SerializeField] private Color defaultColor;
         [SerializeField] private Color coloredColor;
         [SerializeField] private SpriteRenderer spriteRenderer;
-
         [SerializeField] private EnemyView _enemyView;
 
         private void Awake()
@@ -23,7 +22,13 @@ namespace Shooter.Components.ColorGun
         public void Explode()
         {
             SetUnexplosive();
-            _enemyView.CallDestroy();
+            _enemyView.Explode();
+        }
+
+        public void Damage()
+        {
+            SetUnexplosive();
+            _enemyView.Explode();
         }
 
         public void SetExplosive()

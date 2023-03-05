@@ -21,7 +21,7 @@ namespace Shooter.Components.ColorGun
 
         public void Update()
         {
-            if (Input.GetButtonDown("Fire1") && _ammoController.CurrentAmmo > 0)
+            if (Input.GetButtonDown("Fire1") && _ammoController.CanShoot())
             {
                 var bullet = _coloredBulletPool.GetBullet();
                 if (bullet == null)
