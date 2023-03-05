@@ -9,8 +9,8 @@ namespace Shooter.UI
     internal interface IHealthBarView
     {
         void Init(int maxHealth);
-        void IncreaseHealth(int amount);
-        void DecreaseHealth(int amount);
+        void IncreaseHealth();
+        void DecreaseHealth();
     }
 
     internal class HealthBarView : MonoBehaviour, IHealthBarView
@@ -37,23 +37,19 @@ namespace Shooter.UI
             _maxHealth = maxHealth;
 
             GenerateHealth(_maxHealth);
-
-            IncreaseHealth(_maxHealth);
         }
 
-        public void IncreaseHealth(int amount)
+        public void IncreaseHealth()
         {
-            if (amount < 0) amount = 0;       
-            int resultHealth = _currentHealth + amount;
+            int resultHealth = _currentHealth + 1;
             _currentHealth = resultHealth > _maxHealth ? _maxHealth : resultHealth;
 
             UpdateHealthBar();
         }
 
-        public void DecreaseHealth(int amount)
+        public void DecreaseHealth()
         {
-            if (amount < 0) amount = 0;
-            int resultHealth = _currentHealth - amount;
+            int resultHealth = _currentHealth - 1;
             _currentHealth = resultHealth < 0 ? 0 : resultHealth;
 
             UpdateHealthBar();
@@ -66,6 +62,8 @@ namespace Shooter.UI
                Image newHealtPoint = Instantiate(_healthItemPrefab, _healthPlacement, false);
                 _healthsImage.Add(newHealtPoint);
             }
+
+            _currentHealth = _maxHealth;
         }
 
         private void UpdateHealthBar()
@@ -83,18 +81,18 @@ namespace Shooter.UI
                     _healthsImage[i].sprite = _helthFullSprite;
                 }
             }
-            
+
             LayoutRebuilder.ForceRebuildLayoutImmediate(_healthPlacement);
         }
 
         #region For UI Test
 
-        [ContextMenu(nameof(AddOneHealth))]
-        private void AddOneHealth() => IncreaseHealth(1);
+        [ContextMenu(nameof(AddHealth))]
+        private void AddHealth() => IncreaseHealth();
 
         [ContextMenu(nameof(MinusOneHealt))]
-        private void MinusOneHealt() => DecreaseHealth(1);
-        
+        private void MinusOneHealt() => DecreaseHealth();
+
         #endregion
     }
 }

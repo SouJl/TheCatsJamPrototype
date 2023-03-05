@@ -1,3 +1,4 @@
+using Shooter.UI;
 using UnityEngine;
 
 namespace Shooter.Components.ColorGun
@@ -6,17 +7,31 @@ namespace Shooter.Components.ColorGun
     {
         [SerializeField] float killerZoneRadius;
         [SerializeField] CircleCollider2D killerZoneTrigger;
+        AmmoController _ammoController;
+        HealthController _healthController;
 
-        private void Awake()
+        public void Init(AmmoController ammoController, HealthController healthController)
         {
             killerZoneTrigger.radius = killerZoneRadius;
+            _ammoController = ammoController;
+            _healthController = healthController;
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            var IExplosiveComponent = collision.GetComponent<IExplosive>();
-            if (IExplosiveComponent is { IsExploding: true })
-                IExplosiveComponent.Explode();
+            var explosive = collision.GetComponent<IExplosive>();
+            if (explosive != null)
+            {
+                if (explosive.IsExploding)
+                {
+                    explosive.Explode();
+                    _ammoController.AddEnemyAmmo();
+                }
+                else
+                {
+                    _healthController.DecreaseHealth();
+                }
+            }
         }
 
         void OnDrawGizmos()

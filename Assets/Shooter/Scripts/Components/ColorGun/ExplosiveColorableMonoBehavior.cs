@@ -24,15 +24,6 @@ namespace Shooter.Components.ColorGun
         {
             SetUnexplosive();
             _enemyView.CallDestroy();
-
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
-            foreach (Collider2D collider in colliders)
-            {
-                var IExplosiveComponent = collider.GetComponent<IExplosive>();
-
-                if (IExplosiveComponent is { IsExploding: true })
-                    IExplosiveComponent.Explode();
-            }
         }
 
         public void SetExplosive()

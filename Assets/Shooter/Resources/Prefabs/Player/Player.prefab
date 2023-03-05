@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33070d4e168d2d24c917dcd77973edbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _killerZoneComponent: {fileID: 6394243022088086660}
+  _gunComponent: {fileID: 4243462742682510339}
 --- !u!212 &603611881189004902
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -178,6 +180,10 @@ PrefabInstance:
       propertyPath: _playerView
       value: 
       objectReference: {fileID: 603611881189004824}
+    - target: {fileID: 5255224526495466579, guid: 6c76ecb92f41585478dee1baa2d7da6b, type: 3}
+      propertyPath: _ammoManager
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8821977665669319202, guid: 6c76ecb92f41585478dee1baa2d7da6b, type: 3}
       propertyPath: m_Name
       value: Gun
@@ -233,3 +239,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8821977665669319203, guid: 6c76ecb92f41585478dee1baa2d7da6b, type: 3}
   m_PrefabInstance: {fileID: 8218365893422145616}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4243462742682510339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5255224526495466579, guid: 6c76ecb92f41585478dee1baa2d7da6b, type: 3}
+  m_PrefabInstance: {fileID: 8218365893422145616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fa0e7484a8e5a468e8766583bc7609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

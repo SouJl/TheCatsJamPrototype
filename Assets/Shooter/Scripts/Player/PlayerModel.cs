@@ -2,21 +2,31 @@
 {
     internal interface IPlayer
     {
-        int HealthPoints { get; }
-
         float Speed { get; }
+    }
+
+    internal interface IHealth
+    {
+        int HealthPoints { get; }
     }
 
     internal class PlayerModel : IPlayer
     {
-        public int HealthPoints { get; private set; }
-
         public float Speed { get; private set; }
 
         public PlayerModel(IPlayerConfig config)
         {
-            HealthPoints = config.HealthPoints;
             Speed = config.Speed;
+        }
+    }
+
+    internal class HealthModel : IHealth
+    {
+        public int HealthPoints { get; private set; }
+
+        public HealthModel(IHealthConfig config)
+        {
+            HealthPoints = config.HealthPoints;
         }
     }
 }
