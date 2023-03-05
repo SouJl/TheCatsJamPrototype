@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour, IHealth
@@ -12,6 +9,12 @@ public class Health : MonoBehaviour, IHealth
     {
         gameObject.SetActive(false);
         _maxLifeTime = maxLifeTime;
+    }
+
+    public void Consume()
+    {
+        gameObject.SetActive(false);
+        _currentLifeTime = 0f;
     }
 
     void Update()

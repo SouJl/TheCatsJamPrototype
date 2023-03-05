@@ -1,5 +1,6 @@
 ﻿using Shooter.Tool;
 using System;
+using Shooter.Scripts.Controllers;
 using UnityEngine;
 
 namespace Shooter.Enemy
@@ -17,6 +18,7 @@ namespace Shooter.Enemy
             _playerTransform = playerTransform;
             _view = view;
             _config = LoadConfig(_configPath);
+            var puffController = new PuffController(view);
         }
 
         private IEnemyConfig LoadConfig(string configPath) =>
