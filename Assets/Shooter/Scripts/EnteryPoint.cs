@@ -25,6 +25,7 @@ namespace Shooter
             var playerController = new PlayerController(ammoController, healthBarController, scoreController);
             var endGameController = new EndGameController(_placeForUI, pauseController, healthBarController, scoreController);
 
+            _executeObjects.Add(healthBarController);
             _executeObjects.Add(playerController);
             _executeObjects.Add(ammoController);
             _executeObjects.Add(hardcoreController);
