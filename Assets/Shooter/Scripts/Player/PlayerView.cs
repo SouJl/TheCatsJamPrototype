@@ -9,15 +9,17 @@ namespace Shooter.Player
     internal sealed class PlayerView : MonoBehaviour, IPlayerView
     {
         [SerializeField] private KillerZoneComponent _killerZoneComponent;
+        [SerializeField] private HealthPickupZoneComponent _healthPickupZoneComponent;
         [SerializeField] private GunComponent _gunComponent;
 
         public void Init(
-            AmmoController ammoController, 
-            HealthController healthController, 
+            AmmoController ammoController,
+            HealthController healthController,
             ScoreController scoreController)
         {
             _killerZoneComponent.Init(ammoController, healthController, scoreController);
             _gunComponent.Init(ammoController, transform);
+            _healthPickupZoneComponent.Init(healthController);
         }
     }
 }

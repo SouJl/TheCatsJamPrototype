@@ -13,7 +13,7 @@ namespace Shooter.UI
         event Action<int> onHealthChanged;
 
         void Init(int maxHealth);
-        void DecreaseHealth();
+        void UpdateHealthBar(int currentHealth);
     }
 
     internal class HealthBarView : MonoBehaviour, IHealthBarView
@@ -27,7 +27,6 @@ namespace Shooter.UI
 
         private List<HealthView> _healths;
         private int _maxHealth;
-        private int _currentHealth;
 
         public void Init(int maxHealth)
         {
@@ -37,43 +36,21 @@ namespace Shooter.UI
             GenerateHealth(_maxHealth);
         }
 
-        public void IncreaseHealth()
+        void GenerateHealth(int count)
         {
-            int resultHealth = _currentHealth + 1;
-            _currentHealth = resultHealth > _maxHealth ? _maxHealth : resultHealth;
-
-            UpdateHealthBar();
-            onHealthChanged?.Invoke(_currentHealth);
-        }
-
-        public void DecreaseHealth()
-        {
-            int resultHealth = _currentHealth - 1;
-            _currentHealth = resultHealth < 0 ? 0 : resultHealth;
-
-            UpdateHealthBar();
-            onHealthChanged?.Invoke(_currentHealth);
-        }
-
-        private void GenerateHealth(int count)
-        {
-            for(int i =0; i < count; i++)
+            for(int i = 0; i < count; i++)
             {
-               HealthView healthView = Instantiate(_healthItemPrefab, _healthPlacement, false);
-               healthView.SetSprite(_helthFullSprite);
-               _healths.Add(healthView);
+                HealthView healthView = Instantiate(_healthItemPrefab, _healthPlacement, false);
+                healthView.SetSprite(_helthFullSprite);
+                _healths.Add(healthView);
             }
-
-            _currentHealth = _maxHealth;
         }
 
-        private void UpdateHealthBar()
+        public void UpdateHealthBar(int currentHealth)
         {
-            if (_healths == null) return;
-
             for (int i = 0; i < _maxHealth; i++)
             {
-                if (i > _currentHealth - 1)
+                if (i > currentHealth - 1)
                 {
                     _healths[i].SetSprite(_helthEmptySprite);
                 }
@@ -83,15 +60,5 @@ namespace Shooter.UI
                 }
             }
         }
-
-        #region For UI Test
-
-        [ContextMenu(nameof(AddHealth))]
-        private void AddHealth() => IncreaseHealth();
-
-        [ContextMenu(nameof(MinusOneHealt))]
-        private void MinusOneHealt() => DecreaseHealth();
-
-        #endregion
     }
 }
