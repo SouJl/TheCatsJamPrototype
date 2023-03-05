@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20a8e39c315f094ab6823f2e7b2baab, type: 3}
   m_Name: ScoreConfig
   m_EditorClassIdentifier: 
-  <ScoreAmount>k__BackingField: 15
+  <ScoreAmount>k__BackingField: 10
+  <ScoreResetTime>k__BackingField: 1
