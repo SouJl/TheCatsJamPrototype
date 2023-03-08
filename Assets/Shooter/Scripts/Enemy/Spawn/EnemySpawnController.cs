@@ -86,7 +86,11 @@ namespace Shooter.Enemy
                 enemyController.Execute();
         }
 
-        public void FixedExecute() { }
+        public void FixedExecute() 
+        {
+            foreach (var enemyController in _enemyControllers)
+                enemyController.FixedExecute();
+        }
 
         public void Dispose()
         {

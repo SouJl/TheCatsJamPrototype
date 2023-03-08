@@ -27,13 +27,11 @@ namespace Shooter.Enemy
         public void Execute()
         {
             RotateTowardsTargetPosition(_playerTransform.position);
-            MoveTowardsTarget(_playerTransform.position);
         }
 
-        private void MoveTowardsTarget(Vector3 targetPos)
-        {
-            Vector3 targeDiff = GetDifference(targetPos);
-            _view.transform.position += targeDiff * (_config.Speed * Time.deltaTime);
+        public void FixedExecute()
+        {   
+            MoveTowardsTarget(_playerTransform.position);
         }
 
         private void RotateTowardsTargetPosition(Vector3 targetPos)
@@ -44,15 +42,19 @@ namespace Shooter.Enemy
             _view.transform.localRotation = Quaternion.Slerp(_view.transform.localRotation, toRotation, _config.RotationSpeed);
         }
 
+        private void MoveTowardsTarget(Vector3 targetPos)
+        {
+            Vector3 targeDiff = GetDifference(targetPos);
+            _view.ChangeRigidPosition(targeDiff * (_config.Speed * Time.fixedDeltaTime));
+
+        }
+
+
         private Vector3 GetDifference(Vector3 targetPos)
         {
             Vector3 diff = targetPos - _view.transform.position;
             diff.Normalize();
             return diff;
-        }
-
-        public void FixedExecute()
-        {
         }
 
         public void Dispose()
