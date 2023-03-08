@@ -15,6 +15,9 @@ MonoBehaviour:
   <Speed>k__BackingField: 2
   <RotationSpeed>k__BackingField: 0.01
   <Velocity>k__BackingField: 2
-  <ColliderAvoid>k__BackingField: 2
+  <ColliderAvoid>k__BackingField: 5
   <VelocityMatching>k__BackingField: 0.25
   <FlockCentering>k__BackingField: 0.2
+  <TargetPull>k__BackingField: 2
+  <TargetPusch>k__BackingField: 2
+  <TargetPushDistance>k__BackingField: 5
