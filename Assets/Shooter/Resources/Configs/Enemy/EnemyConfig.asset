@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 2
   <RotationSpeed>k__BackingField: 0.01
+  <Velocity>k__BackingField: 2
+  <ColliderAvoid>k__BackingField: 2
+  <VelocityMatching>k__BackingField: 0.25
+  <FlockCentering>k__BackingField: 0.2

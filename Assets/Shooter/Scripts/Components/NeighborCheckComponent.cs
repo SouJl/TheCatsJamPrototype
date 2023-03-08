@@ -4,14 +4,24 @@ using UnityEngine;
 
 namespace Shooter.Components
 {
+    internal interface INeighbotCheck
+    {
+        Vector2 AveragePosition { get; }
+        Vector2 AvetageVelocity { get; }
+
+        Vector2 AverageClosePosition { get; }
+
+        Vector2 RandomNeighborPosition { get; }
+    }
+
     [RequireComponent(typeof(CircleCollider2D))]
-    internal class NeighborCheckComponent : MonoBehaviour
+    internal class NeighborCheckComponent : MonoBehaviour , INeighbotCheck
     {
         [SerializeField] private float _colliderDistance = 4f;
         [SerializeField] private float _neighborCheckDist = 10f;
         [SerializeField] private CircleCollider2D _collider;
 
-        private List<IEnemyView> _neighbors;
+        private List<IEnemyView> _neighbors = new List<IEnemyView>(); 
 
         private void OnValidate()
         {
@@ -19,10 +29,6 @@ namespace Shooter.Components
             _collider.radius = _neighborCheckDist / 2f;
         }
 
-        private void Start()
-        {
-            _neighbors = new List<IEnemyView>(); 
-        }
 
         private void FixedUpdate()
         {
@@ -32,8 +38,6 @@ namespace Shooter.Components
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log(collision.gameObject.name);
-
             var neighbor = collision.GetComponent<IEnemyView>();
             if (neighbor != null)
             {
@@ -106,5 +110,16 @@ namespace Shooter.Components
             }
         }
 
+        public Vector2 RandomNeighborPosition 
+        {
+            get
+            {
+                if (_neighbors.Count == 0) return Vector2.zero;
+
+                int index = Random.Range(0, _neighbors.Count);
+
+                return _neighbors[index].Transform.position;
+            }
+        }
     }
 }
